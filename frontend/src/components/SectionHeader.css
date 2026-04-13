@@ -1,0 +1,128 @@
+.section-header-container {
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 2;
+  animation: slideDownFade 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes slideDownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.section-header-container--center {
+  align-items: center;
+  text-align: center;
+}
+
+.section-header-container--left {
+  align-items: flex-start;
+  text-align: left;
+}
+
+.section-header__subtitle {
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--yellow);
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  /* Increased for authority */
+  margin-bottom: 8px;
+  font-family: var(--sans);
+  position: relative;
+  display: inline-block;
+  text-shadow: 0 0 10px rgba(var(--yellow-rgb), 0.3);
+}
+
+.section-header__title {
+  font-size: 36px;
+  color: var(--primary);
+  font-family: var(--heading);
+  /* Cinzel */
+  margin: 0;
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  /* Sharp celestial shadow */
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.section-header__divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: auto;
+  min-width: 120px;
+  margin-top: 16px;
+}
+
+.divider-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--yellow));
+}
+
+.divider-line:last-child {
+  background: linear-gradient(90deg, var(--yellow), transparent);
+}
+
+.divider-star {
+  color: var(--yellow);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-shadow: 0 0 10px rgba(var(--yellow-rgb), 0.5);
+}
+
+.section-header-container--left .section-header__divider {
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.section-header-container--left .divider-line:first-child {
+  display: none;
+}
+
+.section-header-container--left .divider-line:last-child {
+  flex: 0 0 140px;
+}
+
+@media (max-width: 1024px) {
+  .section-header__title {
+    font-size: 38px;
+  }
+}
+
+@media (max-width: 768px) {
+  .section-header-container {
+    margin-bottom: 20px;
+  }
+
+  .section-header__title {
+    font-size: 26px;
+    /* Reduced from 32px */
+  }
+
+  .section-header__subtitle {
+    font-size: 10px;
+    /* Reduced from 11px */
+    letter-spacing: 2.5px;
+    /* Reduced from 3px */
+  }
+
+  .section-header__divider {
+    width: 80px;
+    margin-top: 14px;
+  }
+}

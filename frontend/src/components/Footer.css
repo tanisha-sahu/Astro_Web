@@ -1,0 +1,474 @@
+.divine-foundation {
+  margin-top: auto;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  border-top: 1.5px solid var(--yellow);
+}
+
+/* --- Tier 1: Solar Newsletter (Compressed) --- */
+.foundation-newsletter {
+  background: var(--primary);
+  color: var(--white);
+  padding: 24px 0;
+  /* Reduced from 28px */
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.foundation-newsletter-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  text-align: left;
+  box-sizing: border-box;
+}
+
+.newsletter-title {
+  font-family: var(--heading);
+  font-size: 20px;
+  /* Condensed */
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--yellow);
+}
+
+.newsletter-desc {
+  margin: 0;
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+.newsletter-form {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  max-width: 400px;
+  /* More compact */
+}
+
+.newsletter-input {
+  flex: 1;
+  padding: 10px 18px;
+  border-radius: 25px;
+  border: 1px solid rgba(var(--white-rgb), 0.15);
+  background: rgba(var(--white-rgb), 0.08);
+  color: var(--white);
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.newsletter-input:focus {
+  outline: none;
+  border-color: var(--yellow);
+  background: rgba(var(--white-rgb), 0.12);
+  box-shadow: 0 0 15px rgba(var(--yellow-rgb), 0.2);
+}
+
+.newsletter-submit {
+  padding: 10px 24px;
+  border-radius: 25px;
+  border: none;
+  background: var(--yellow);
+  color: var(--primary);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+/* --- Tier 2: Institutional Link Grid (Compressed) --- */
+.foundation-main {
+  background: var(--surface-main);
+  padding: 30px 0 20px;
+  /* Reduced from 40px 0 30px */
+  position: relative;
+}
+
+.foundation-grid {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  gap: 30px;
+  box-sizing: border-box;
+}
+
+.foundation-logo {
+  height: 50px;
+  /* Compact brand mark */
+  width: auto;
+  margin-bottom: 15px;
+}
+
+.foundation-tagline {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-main);
+  opacity: 0.7;
+  margin-bottom: 20px;
+}
+
+.foundation-trust-badges {
+  display: flex;
+  gap: 8px;
+}
+
+.foundation-trust-badges span {
+  font-size: 9px;
+  font-weight: 800;
+  color: var(--primary);
+  padding: 4px 10px;
+  background: rgba(var(--primary-rgb), 0.02);
+  border: 1px solid var(--yellow);
+  border-radius: 4px;
+}
+
+.foundation-link-heading {
+  font-family: var(--heading);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--primary);
+  margin-bottom: 15px;
+  border-bottom: 1px solid rgba(var(--yellow-rgb), 0.2);
+  padding-bottom: 6px;
+  display: inline-block;
+}
+
+.foundation-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.foundation-list a {
+  text-decoration: none;
+  color: var(--text-main);
+  font-size: 13px;
+  opacity: 0.8;
+  transition: 0.3s;
+}
+
+.foundation-list a:hover {
+  color: var(--primary);
+  opacity: 1;
+  padding-left: 4px;
+}
+
+/* --- Tier 3: Sacred Bottom Bar (Compressed) --- */
+.foundation-bottom {
+  border-top: 1px solid var(--yellow);
+  /* Solid gold border */
+  background: var(--primary);
+  /* Red background */
+  padding: 12px 0;
+}
+
+.foundation-bottom-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.foundation-copyright {
+  font-size: 11px;
+  color: var(--white);
+  opacity: 0.9;
+  letter-spacing: 0.5px;
+}
+
+.foundation-social {
+  display: flex;
+  gap: 12px;
+}
+
+.social-orb {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  /* Subtle white glass */
+  border: 1px solid var(--yellow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--yellow);
+  /* Gold icons */
+  transition: 0.3s;
+}
+
+.social-orb svg {
+  width: 18px;
+  height: 18px;
+}
+
+.social-orb:hover {
+  background: var(--yellow);
+  color: var(--primary);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 1024px) {
+  .foundation-grid {
+    grid-template-columns: 1fr repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .foundation-newsletter {
+    padding: 20px 0;
+  }
+
+  .newsletter-title {
+    font-size: 18px;
+  }
+
+  .newsletter-desc {
+    font-size: 12px;
+  }
+
+  .foundation-newsletter-inner {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+
+  .foundation-main {
+    padding: 24px 0 15px;
+  }
+
+  .foundation-grid {
+    grid-template-columns: repeat(2, 1fr);
+    /* 2 Col grid to save height */
+    text-align: center;
+    /* Changed from left */
+    gap: 20px;
+    padding: 0 20px;
+  }
+
+  .foundation-brand-col {
+    grid-column: 1 / -1;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-bottom: 5px;
+  }
+
+  .foundation-list {
+    align-items: center;
+  }
+
+  .foundation-logo {
+    height: 40px;
+  }
+
+  .foundation-tagline {
+    font-size: 12px;
+    margin-bottom: 15px;
+  }
+
+  .foundation-bottom-inner {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .social-orb {
+    width: 34px;
+    height: 34px;
+  }
+}
+
+/* --- Celestial Success Overlay --- */
+.celestial-success-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(var(--primary-rgb), 0.98);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: overlayFadeIn 0.5s ease forwards;
+}
+
+.success-content {
+  text-align: center;
+  color: var(--white);
+  padding: 40px;
+  position: relative;
+}
+
+.success-star {
+  font-size: 80px;
+  /* Larger */
+  color: var(--yellow);
+  margin-bottom: 24px;
+  animation: starPop 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  text-shadow: 0 0 50px var(--yellow), 0 0 100px rgba(var(--yellow-rgb), 0.5);
+  filter: drop-shadow(0 0 20px var(--yellow));
+}
+
+.success-title {
+  font-family: var(--heading);
+  font-size: 42px;
+  /* Larger */
+  font-weight: 800;
+  color: var(--yellow);
+  /* Changed from dark to gold for visibility */
+  margin-bottom: 16px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  animation: slideUpFade 0.8s ease forwards 0.3s;
+  opacity: 0;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3), 0 0 20px rgba(var(--yellow-rgb), 0.4);
+}
+
+.success-msg {
+  font-size: 18px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 400px;
+  margin: 0 auto;
+  opacity: 0;
+  animation: slideUpFade 0.8s ease forwards 0.5s;
+  letter-spacing: 0.5px;
+}
+
+@media (max-width: 768px) {
+  .success-content {
+    padding: 20px;
+  }
+
+  .success-star {
+    font-size: 60px;
+    margin-bottom: 16px;
+  }
+
+  .success-title {
+    font-size: 28px;
+    letter-spacing: 2px;
+  }
+
+  .success-msg {
+    font-size: 14px;
+  }
+}
+
+.success-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, var(--yellow) 0%, var(--primary) 40%, transparent 70%);
+  opacity: 0.15;
+  filter: blur(60px);
+  z-index: -1;
+  animation: glowPulse 3s infinite ease-in-out;
+}
+
+/* Atmospheric Mandala Background */
+.success-mandala {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120vh;
+  height: 120vh;
+  background-image: url('/astro sanatani logo.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.05;
+  filter: invert(1) brightness(2);
+  z-index: -2;
+  animation: mandalaRotate 100s linear infinite;
+}
+
+@keyframes mandalaRotate {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes overlayFadeIn {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0);
+  }
+
+  to {
+    opacity: 1;
+    backdrop-filter: blur(10px);
+  }
+}
+
+@keyframes starPop {
+  0% {
+    transform: scale(0) rotate(-45deg);
+    filter: brightness(2);
+  }
+
+  70% {
+    transform: scale(1.3) rotate(10deg);
+    filter: brightness(1.5);
+  }
+
+  100% {
+    transform: scale(1) rotate(0deg);
+    filter: brightness(1);
+  }
+}
+
+@keyframes glowPulse {
+
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.1;
+  }
+
+  50% {
+    transform: translate(-50%, -50%) scale(1.4);
+    opacity: 0.25;
+  }
+}
+
+@keyframes slideUpFade {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

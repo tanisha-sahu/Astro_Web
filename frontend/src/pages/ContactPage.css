@@ -1,0 +1,299 @@
+.contact-page {
+  background: var(--surface-main);
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+/* --- Atmospheric Decorators --- */
+.contact-decorator-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120%;
+  height: 120%;
+  background-image: url('/astro sanatani logo.png');
+  background-size: 600px;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.03;
+  filter: grayscale(1);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.contact-glow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  filter: blur(150px);
+  opacity: 0.08;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.contact-glow--red {
+  top: -150px;
+  right: -150px;
+  background: var(--accent-red);
+}
+
+.contact-glow--gold {
+  bottom: -150px;
+  left: -150px;
+  background: var(--gold);
+}
+
+/* --- Grid Section --- */
+.contact-container {
+  position: relative;
+  z-index: 3;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 40px 100px;
+}
+
+.contact-header-mini {
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 50px;
+  align-items: start;
+}
+
+/* --- Themed Info Cards --- */
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.info-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: var(--white);
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+  transition: all 400ms cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(var(--primary-rgb), 0.05);
+
+  /* Entry Animation */
+  opacity: 0;
+  transform: translateX(-30px);
+  animation: infoCardEntry 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: calc(var(--i) * 0.15s + 0.3s);
+}
+
+@keyframes infoCardEntry {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.info-card:hover {
+  transform: translateX(10px);
+  box-shadow: 0 20px 50px rgba(var(--primary-rgb), 0.1);
+  border-color: var(--gold);
+}
+
+.info-card__icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.info-card__icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Theme specifics */
+.info-card--location .info-card__icon {
+  background: rgba(var(--accent-red-rgb), 0.1);
+  color: var(--accent-red);
+}
+.info-card--hotline .info-card__icon {
+  background: rgba(var(--gold-rgb), 0.1);
+  color: var(--gold);
+}
+.info-card--mail .info-card__icon {
+  background: rgba(var(--primary-rgb), 0.1);
+  color: var(--primary);
+}
+
+.info-card__content h3 {
+  font-family: var(--heading);
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.info-card__content p {
+  color: var(--text-main);
+  font-size: 14px;
+  opacity: 0.8;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* --- Premium Sacred Form --- */
+.contact-form-wrap {
+  background: var(--white);
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(var(--gold-rgb), 0.15);
+
+  /* Entry Animation */
+  opacity: 0;
+  transform: translateY(30px);
+  animation: formEntry 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 0.6s;
+}
+
+.form-inner-decorator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(to right, var(--accent-red), var(--gold), var(--primary));
+}
+
+@keyframes formEntry {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-title {
+  font-family: var(--heading);
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 30px;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+.sacred-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group input, 
+.form-group textarea {
+  width: 100%;
+  padding: 14px 18px;
+  background: #fcfaf8;
+  border: 1px solid rgba(var(--primary-rgb), 0.1);
+  border-radius: 10px;
+  color: var(--primary);
+  font-family: var(--body);
+  font-size: 14px;
+  transition: all 400ms cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+}
+
+.form-group input:focus, 
+.form-group textarea:focus {
+  outline: none;
+  background: var(--white);
+  border-color: var(--gold);
+  box-shadow: 0 0 15px rgba(var(--gold-rgb), 0.25);
+}
+
+.sacred-submit {
+  background: linear-gradient(135deg, var(--accent-red) 0%, #b30000 100%);
+  color: var(--white);
+  border: none;
+  padding: 16px 24px;
+  font-family: var(--heading);
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 400ms cubic-bezier(0.16, 1, 0.3, 1);
+  margin-top: 10px;
+  box-shadow: 0 8px 25px rgba(var(--accent-red-rgb), 0.25);
+}
+
+.sacred-submit:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(var(--accent-red-rgb), 0.4);
+  filter: brightness(1.1);
+}
+
+/* --- Submission Feedback --- */
+.submission-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(var(--white-rgb), 0.98);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px;
+  z-index: 10;
+  animation: fadeIn 0.4s ease;
+}
+
+.submission-star {
+  font-size: 40px;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 20px;
+  animation: starSpin 2s infinite linear;
+}
+
+@keyframes starSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 1024px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-container {
+    padding: 40px 20px 60px;
+  }
+  .contact-form-wrap {
+    padding: 30px 20px;
+  }
+  .contact-glow {
+    width: 300px;
+    height: 300px;
+  }
+}

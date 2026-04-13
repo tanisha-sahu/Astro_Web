@@ -1,0 +1,301 @@
+/* --- Page Infrastructure --- */
+.consult-page {
+  background: var(--surface-main);
+  overflow-x: hidden;
+}
+
+.consult-container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+/* --- Consultation Hero: Institutional Elegance --- */
+.consult-hero {
+  position: relative;
+  min-height: calc(100vh - 84px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-bottom: 3px solid var(--yellow);
+}
+
+@media (max-width: 768px) {
+  .consult-hero {
+    min-height: calc(100vh - 70px);
+  }
+}
+
+.consult-hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.consult-hero__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.consult-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.8) 100%);
+  z-index: 2;
+}
+
+.consult-hero__content {
+  position: relative;
+  z-index: 10;
+  max-width: 900px;
+}
+
+.consult-hero__content .section-header__title {
+  color: var(--primary);
+  font-size: 48px;
+  margin-bottom: 8px;
+}
+
+.consult-hero__content .section-header__subtitle {
+  color: var(--yellow);
+  font-weight: 800;
+  letter-spacing: 4px;
+}
+
+.consult-hero__text {
+  font-size: 18px;
+  margin: 16px 0 32px;
+  line-height: 1.6;
+  color: var(--primary);
+  opacity: 0.9;
+  font-style: italic;
+}
+
+.consult-hero__cta {
+  display: inline-flex;
+  padding: 20px 50px;
+  background: var(--primary);
+  color: var(--white);
+  text-decoration: none;
+  font-family: var(--heading);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 14px;
+  border-radius: 999px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 10px 30px rgba(var(--primary-rgb), 0.2);
+}
+
+.consult-hero__cta:hover {
+  transform: translateY(-8px);
+  background: var(--yellow);
+  color: var(--primary);
+  box-shadow: 0 20px 50px rgba(var(--yellow-rgb), 0.4);
+}
+
+/* --- Services Grid: Clean & Perfect --- */
+.consult-services {
+  padding: 40px 0;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 40px;
+  justify-content: center;
+  width: 100%;
+}
+
+.service-card {
+  background: var(--white);
+  padding: 32px 24px;
+  border: 1px solid rgba(var(--yellow-rgb), 0.15);
+  border-radius: 16px;
+  text-align: center;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+  /* Enhanced base shadow */
+}
+
+.service-card:hover {
+  transform: translateY(-12px);
+  border-color: var(--yellow);
+  box-shadow: 0 25px 60px rgba(var(--yellow-rgb), 0.15);
+  /* Yellow Glow Shadow */
+}
+
+.service-card__icon {
+  font-size: 36px;
+  color: var(--yellow);
+  margin-bottom: 24px;
+}
+
+.service-card__title {
+  font-family: var(--heading);
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.service-card__desc {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text-muted);
+}
+
+/* --- Process Section --- */
+.consult-process {
+  padding: 40px 0;
+  background: rgba(var(--primary-rgb), 0.02);
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
+  margin-top: 40px;
+  justify-content: center;
+  width: 100%;
+}
+
+.process-step {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.step-number {
+  font-family: var(--heading);
+  font-size: 72px;
+  font-weight: 900;
+  color: var(--yellow);
+  opacity: 0.35;
+  margin-bottom: -40px;
+  display: block;
+}
+
+.process-step h3 {
+  font-family: var(--heading);
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+/* --- Final CTA: Institutional Power --- */
+.consult-final-cta {
+  padding: 60px 0;
+  background: linear-gradient(rgba(var(--primary-rgb), 0.96), rgba(var(--primary-rgb), 0.98)),
+    url('/consult-hero.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: var(--white);
+  text-align: center;
+  border-top: 4px solid var(--yellow);
+}
+
+.final-cta-box {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.final-cta-box h2 {
+  font-family: var(--heading);
+  font-size: 42px;
+  font-weight: 700;
+  color: var(--yellow);
+  margin-bottom: 16px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.final-cta-box p {
+  font-size: 18px;
+  opacity: 0.95;
+  margin-bottom: 40px;
+  font-family: var(--heading);
+  font-style: italic;
+  letter-spacing: 1px;
+}
+
+.final-cta-box .btn {
+  padding: 14px 44px;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  background: var(--yellow);
+  color: var(--primary);
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  text-transform: uppercase;
+  box-shadow: 0 10px 25px rgba(var(--yellow-rgb), 0.25);
+}
+
+.final-cta-box .btn:hover {
+  transform: translateY(-8px);
+  background: var(--white);
+  box-shadow: 0 20px 60px rgba(255, 255, 255, 0.4);
+}
+
+/* --- Mobile Grid Mastery --- */
+@media (max-width: 1024px) {
+  .consult-container {
+    padding: 0 20px;
+  }
+
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .process-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .final-cta-box h2 {
+    font-size: 42px;
+  }
+}
+
+@media (max-width: 768px) {
+  .consult-container {
+    padding: 0 16px;
+  }
+
+  .consult-hero__content .section-header__title {
+    font-size: 34px;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .final-cta-box h2 {
+    font-size: 32px;
+    letter-spacing: 2px;
+  }
+
+  .final-cta-box p {
+    font-size: 18px;
+  }
+}

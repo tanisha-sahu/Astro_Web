@@ -1,0 +1,184 @@
+.productCategoriesSection {
+  background: var(--surface-main);
+  position: relative;
+  overflow: hidden;
+  border-bottom: none;
+  /* Removed the transition line */
+}
+
+/* --- Atmospheric Mandala Layer --- */
+.cat-mandala-bg {
+  position: absolute;
+  top: 50%;
+  right: -100px;
+  transform: translateY(-50%);
+  width: 500px;
+  height: 500px;
+  background-image: url('/astro sanatani logo.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.02;
+  filter: grayscale(1);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.cat-header-wrap {
+  max-width: 1320px;
+  margin: 0 auto 20px;
+  padding: 0 40px;
+  position: relative;
+  z-index: 2;
+  box-sizing: border-box;
+}
+
+
+
+.catGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 20px 40px 30px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 1200px) {
+  .catGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .catGrid {
+    grid-template-columns: repeat(2, 1fr);
+    /* 2 cards per row on mobile */
+    gap: 12px;
+    /* Tighter gap for high density */
+    padding: 10px 12px 20px;
+  }
+
+  .catCard__media {
+    height: 140px;
+    /* Reduced height for 2-col layout */
+  }
+
+  .catCard {
+    box-shadow: none !important;
+  }
+
+  .catCard__body {
+    padding: 14px;
+    /* Reduced from 18px */
+  }
+
+  .catCard__title {
+    font-size: 13px;
+    /* Reduced from 14px */
+  }
+
+  .catCard__desc {
+    font-size: 11px;
+    /* Reduced from 12px */
+  }
+}
+
+/* --- The Truly Divine Card --- */
+.catCard {
+  width: 100%;
+  text-decoration: none;
+  background: var(--white);
+  border-radius: 12px;
+  border: 1px solid rgba(var(--gold-rgb), 0.1);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.catCard:hover {
+  transform: translateY(-5px);
+  border-color: var(--gold);
+  box-shadow: 0 12px 30px rgba(var(--primary-rgb), 0.1);
+}
+
+/* Image Uniformity - FIXED Aspect Ratio */
+.catCard__media {
+  width: 100%;
+  height: 200px;
+  /* Fixed Height to eliminate uneven cards */
+  overflow: hidden;
+  background: rgba(var(--primary-rgb), 0.03);
+}
+
+.catCard__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* This makes it fill the frame perfectly */
+  transition: transform 0.6s ease;
+}
+
+.catCard:hover .catCard__img {
+  transform: scale(1.08);
+}
+
+.catCard__body {
+  padding: 18px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Bulletproof Typography */
+.catCard__title {
+  font-family: var(--heading);
+  font-size: 14px;
+  /* Optimized Size to prevent truncation */
+  color: var(--primary);
+  margin: 0 0 6px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* Final safety for long titles */
+}
+
+.catCard__desc {
+  font-size: 12px;
+  color: var(--text-main);
+  opacity: 0.6;
+  margin: 0 0 15px;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.catCard__cta {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: gap 0.3s;
+}
+
+.catCard:hover .catCard__cta {
+  gap: 12px;
+  color: var(--gold);
+}
+
+/* Skeleton Matching */
+.catCard--skeleton .catCard__media {
+  background: #f0f0f0;
+}
