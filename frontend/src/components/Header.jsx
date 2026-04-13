@@ -88,7 +88,7 @@ export default function Header() {
           <Link className="brand" to="/" aria-label="Go to Home">
             <img
               className="brand__logo"
-              src="/astro sanatani logo.png"
+              src="/astro-sanatani-logo.png"
               width="140"
               height="40"
               alt="Astro Sanatani"
@@ -182,7 +182,7 @@ export default function Header() {
       <aside className="navDrawer" aria-label="Mobile menu">
         <div className="navDrawer__top">
           <div className="navDrawer__brand">
-            <img src="/astro sanatani logo.png" alt="Astro Sanatani" className="navDrawer__logo" />
+            <img src="/astro-sanatani-logo.png" alt="Astro Sanatani" className="navDrawer__logo" />
             <span className="navDrawer__title">Sacred Menu</span>
           </div>
           <button type="button" className="navDrawer__close" onClick={() => setIsOpen(false)} aria-label="Close menu">

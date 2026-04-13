@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState, useRef, useCallback } from 'react'
 import './ImageCarousel.css'
 
 export default function ImageCarousel({ slides }) {
-  const placeholderSrc = '/images/zodiac_banner.jpg'
+  const placeholderSrc = '/images/zodiac-banner.jpg'
   
   // Base raw slides
   const rawSlides = useMemo(() => {

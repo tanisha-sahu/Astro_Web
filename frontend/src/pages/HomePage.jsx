@@ -12,17 +12,17 @@ export default function HomePage() {
         <ImageCarousel
           slides={[
             {
-              src: '/images/zodiac_banner.jpg',
+              src: '/images/zodiac-banner.jpg',
               title: 'Unlock Your Celestial Destiny',
               subtitle: 'Expert astrological guidance and premium spiritual products.',
             },
             {
-              src: '/images/zodiac_banner.jpg',
+              src: '/images/zodiac-banner.jpg',
               title: 'Sacred Sanatani Rituals',
               subtitle: 'Authentic vedic products for your spiritual journey.',
             },
             {
-              src: '/images/zodiac_banner.jpg',
+              src: '/images/zodiac-banner.jpg',
               title: 'Ancient Wisdom, Modern Living',
               subtitle: 'Bringing the timeless truths of astrology to your doorstep.',
             },

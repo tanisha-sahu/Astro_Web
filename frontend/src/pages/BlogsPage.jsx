@@ -30,7 +30,7 @@ const BLOG_DATA = [
     category: "Mythology",
     date: "Magha 20, 2026",
     readingTime: "15 min read",
-    image: "/blogs/shiv_baraat.png",
+    image: "/blogs/shiv-baraat.png",
     author: "Acharya Sanatani"
   },
   {

@@ -12,7 +12,7 @@ const BestSellersAstro = () => {
       <div className="bs-bento">
         {/* area: hero (2-row spans) */}
         <div className="bs-block bs-block--hero">
-          <img src="/Best Seller/rudraksh.webp" alt="Rudraksha" />
+          <img src="/best-seller/rudraksh.webp" alt="Rudraksha" />
           <div className="bs-content">
             <span className="bs-badge">Energized</span>
             <h3 className="bs-title">Sacred Rudraksha</h3>
@@ -21,7 +21,7 @@ const BestSellersAstro = () => {
 
         {/* area: wide (2-column span) */}
         <div className="bs-block bs-block--wide">
-          <img src="/Best Seller/wellness.jpeg" alt="Wellness" />
+          <img src="/best-seller/wellness.jpeg" alt="Wellness" />
           <div className="bs-content">
             <span className="bs-badge">Wellness Kit</span>
             <h3 className="bs-title">Spiritual Sadhana Collection</h3>
@@ -30,7 +30,7 @@ const BestSellersAstro = () => {
 
         {/* area: ring (single) */}
         <div className="bs-block bs-block--ring">
-          <img src="/Best Seller/navratn.jpeg" alt="Navratna" />
+          <img src="/best-seller/navratn.jpeg" alt="Navratna" />
           <div className="bs-content">
             <h3 className="bs-title">Navratna Ring</h3>
           </div>
@@ -38,7 +38,7 @@ const BestSellersAstro = () => {
 
         {/* area: extra (single) */}
         <div className="bs-block bs-block--extra">
-          <img src="/Best Seller/rudraksh.webp" alt="Protective Yantra" />
+          <img src="/best-seller/rudraksh.webp" alt="Protective Yantra" />
           <div className="bs-content">
             <h3 className="bs-title">Siddh Yantra</h3>
           </div>

@@ -75,7 +75,7 @@ export default function Footer() {
         <div className="foundation-grid">
           <div className="foundation-brand-col">
             <a href="/" className="foundation-logo-link">
-              <img src="/astro sanatani logo.png" alt="Astro Sanatani" className="foundation-logo" />
+              <img src="/astro-sanatani-logo.png" alt="Astro Sanatani" className="foundation-logo" />
             </a>
             <p className="foundation-tagline">
               Authentic Sanatani products and trusted astrology — curated for your spiritual journey.

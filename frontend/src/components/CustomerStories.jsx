@@ -6,19 +6,19 @@ const REVIEWS = [
   {
     id: 1,
     name: "Rajbir Singh",
-    image: "/customerStories.jpeg",
+    image: "/customer-stories.jpeg",
     story: "Me and my partner overcome obstacles in our love marriage. Their guidance was instrumental in convincing our families and making our bond stronger than ever.",
   },
   {
     id: 2,
     name: "Anita Verma",
-    image: "/customerStories.jpeg",
+    image: "/customer-stories.jpeg",
     story: "I was facing a major career crisis. The astrologer's precise timing for my job switch was life-changing. I am now in a position I truly love.",
   },
   {
     id: 3,
     name: "Vikram Sethi",
-    image: "/customerStories.jpeg",
+    image: "/customer-stories.jpeg",
     story: "The health readings were incredibly accurate. Following the suggested remedies brought a lot of peace and physical wellness to my life.",
   },
 ];
@@ -87,7 +87,7 @@ const CustomerStories = () => {
         <div className="divine-visual">
           <div className="zodiac-orbit">
             <div className="zodiac-center">
-              <img src="/astro sanatani logo.png" alt="Sanatani Logo" className="visual-logo" />
+              <img src="/astro-sanatani-logo.png" alt="Sanatani Logo" className="visual-logo" />
               <div className="center-pulse"></div>
             </div>
             {/* The Concentric Grand Orbit with Multiple Stars */}
