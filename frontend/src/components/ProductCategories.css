@@ -1,9 +1,9 @@
 .productCategoriesSection {
-  background: var(--surface-main);
+  background: var(--yellow-50); /* Slightly warmer base */
   position: relative;
   overflow: hidden;
   border-bottom: none;
-  /* Removed the transition line */
+  padding: 60px 0;
 }
 
 /* --- Atmospheric Mandala Layer --- */
@@ -89,42 +89,74 @@
 .catCard {
   width: 100%;
   text-decoration: none;
-  background: var(--white);
-  border-radius: 12px;
-  border: 1px solid rgba(var(--gold-rgb), 0.1);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
-  overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  background: linear-gradient(135deg, var(--yellow-100) 0%, var(--orange-100) 100%);
+  border-radius: 4px; /* Sharper corners for ticket look */
+  position: relative;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  
+  /* Ticket Shape with side notches */
+  clip-path: polygon(
+    0% 0%, 100% 0%, 
+    100% 44%, 96.5% 50%, 100% 56%, 
+    100% 100%, 0% 100%, 
+    0% 56%, 3.5% 50%, 0% 44%
+  );
+  
+  /* Shadow for clipped shapes needs filter drop-shadow */
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1));
 }
 
 .catCard:hover {
-  transform: translateY(-5px);
-  border-color: var(--gold);
-  box-shadow: 0 12px 30px rgba(var(--primary-rgb), 0.1);
+  transform: translateY(-8px);
+  filter: drop-shadow(0 12px 24px rgba(var(--primary-rgb), 0.15));
+}
+
+/* Accent Top Bar */
+.catCard__topBar {
+  width: 100%;
+  height: 28px;
+  background: var(--orange-400); /* Warm accent like in reference */
+  margin-bottom: 2px;
+}
+
+/* Spiritual Watermark */
+.catCard__watermark {
+  position: absolute;
+  top: 40px;
+  right: -15px;
+  width: 100px;
+  height: 100px;
+  background-image: url('/astro-sanatani-logo.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.05;
+  filter: grayscale(1);
+  pointer-events: none;
+  z-index: 0;
+  transform: rotate(-15deg);
 }
 
 /* Image Uniformity - FIXED Aspect Ratio */
 .catCard__media {
   width: 100%;
   height: 200px;
-  /* Fixed Height to eliminate uneven cards */
+  padding: 12px 12px 0; /* Frame effect */
   overflow: hidden;
-  background: rgba(var(--primary-rgb), 0.03);
+  background: transparent;
 }
 
 .catCard__img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* This makes it fill the frame perfectly */
-  transition: transform 0.6s ease;
+  border-radius: 10px; /* Rounded corners for the image itself */
+  transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-.catCard:hover .catCard__img {
-  transform: scale(1.08);
-}
+
 
 .catCard__body {
   padding: 18px;
@@ -162,23 +194,70 @@
 }
 
 .catCard__cta {
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 800;
-  color: var(--primary);
+  color: var(--white);
+  background: var(--orange-600); /* Matched to the sacred orange theme */
   text-transform: uppercase;
   letter-spacing: 2px;
   display: flex;
   align-items: center;
-  gap: 6px;
-  transition: gap 0.3s;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px;
+  width: 100%;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
 }
 
 .catCard:hover .catCard__cta {
+  background: var(--primary);
+  color: var(--white);
   gap: 12px;
-  color: var(--gold);
 }
 
 /* Skeleton Matching */
+.catCard--skeleton .catCard__topBar {
+  background: #e0e0e0;
+}
+
 .catCard--skeleton .catCard__media {
-  background: #f0f0f0;
+  background: transparent;
+}
+
+.catSkeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #f8f8f8 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: cat-shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+@keyframes cat-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.catSkeleton--media {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+
+.catSkeleton--title {
+  width: 60%;
+  height: 14px;
+  margin-bottom: 10px;
+}
+
+.catSkeleton--desc {
+  width: 90%;
+  height: 10px;
+  margin-bottom: 8px;
+}
+
+.catSkeleton--cta {
+  width: 100%;
+  height: 46px; /* Approx height of the real button */
+  border-radius: 0;
 }

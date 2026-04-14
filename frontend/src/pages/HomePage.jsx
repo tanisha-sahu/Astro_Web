@@ -12,19 +12,37 @@ export default function HomePage() {
         <ImageCarousel
           slides={[
             {
-              src: '/images/zodiac-banner.jpg',
-              title: 'Unlock Your Celestial Destiny',
-              subtitle: 'Expert astrological guidance and premium spiritual products.',
+              src: '/home-banner-images/haanuman-aabhushan.png',
+              title: 'Hanuman Mangal Aabhushan',
+              subtitle: 'Carry the Power of Bajrang Bali Always',
+              features: [
+                'Symbol of Protection & Positivity',
+                'Represents Strength, Courage & Devotion',
+                'Premium Finish with Spiritual Essence'
+              ],
+              cta: { text: 'Shop Now', link: '/products/hanuman-aabhushan' }
             },
             {
-              src: '/images/zodiac-banner.jpg',
-              title: 'Sacred Sanatani Rituals',
-              subtitle: 'Authentic vedic products for your spiritual journey.',
+              src: '/home-banner-images/kavach.png',
+              title: 'Sacred Spiritual Kavach',
+              subtitle: 'Ancient Shield of Divine Protection',
+              features: [
+                'Energized with Vedic Mantras',
+                'Represents Spiritual Awakening',
+                'Exquisite Craftsmanship'
+              ],
+              cta: { text: 'Explore Now', link: '/products/spiritual-kavach' }
             },
             {
-              src: '/images/zodiac-banner.jpg',
-              title: 'Ancient Wisdom, Modern Living',
-              subtitle: 'Bringing the timeless truths of astrology to your doorstep.',
+              src: '/home-banner-images/savitri-bandh.png',
+              title: 'The Divine Savitri Bandh',
+              subtitle: 'The Sacred Bond of Inner Peace',
+              features: [
+                'Handcrafted Traditional Design',
+                'Promotes Harmony and Well-being',
+                'Timeless Spiritual Accessory'
+              ],
+              cta: { text: 'Order Now', link: '/products/savitri-bandh' }
             },
           ]}
         />

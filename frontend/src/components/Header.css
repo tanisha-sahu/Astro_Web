@@ -146,7 +146,8 @@
 }
 
 .brand__logo {
-  height: 52px;
+  height: 67px;
+  padding: 7px 0;
   width: auto;
   object-fit: contain;
   transition: all 400ms ease;
@@ -167,7 +168,7 @@
 .brand__name {
   font-family: var(--heading);
   font-weight: 800;
-  font-size: 22px;
+  font-size: 20px;
   color: var(--primary);
   letter-spacing: -0.5px;
   white-space: nowrap;
@@ -178,7 +179,8 @@
 
   @media (max-width: 480px) {
     font-size: 16px; /* Increased from 14px */
-    letter-spacing: -0.2px;
+    letter-spacing: 0.2px;
+    text-transform: uppercase;
   }
 }
 
@@ -348,9 +350,34 @@
   transform: translateY(-2px);
 }
 
+.loginBtn {
+  padding: 8px 20px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--red-900) 100%);
+  color: var(--white);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 14px;
+  border-radius: 100px;
+  transition: all 300ms ease;
+  box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.15);
+  border: 1px solid rgba(var(--yellow-rgb), 0.2);
+}
+
+.loginBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(var(--primary-rgb), 0.25);
+  filter: brightness(1.1);
+}
+
 @media (max-width: 768px) {
   .brand__logo {
     height: 36px; /* Reduced slightly from 40px */
+  }
+
+  .loginBtn {
+    padding: 6px 12px;
+    font-size: 11px;
+    letter-spacing: 0.5px;
   }
 
   .iconBtn {

@@ -84,6 +84,8 @@ export default function ProductCategories() {
                 role="listitem"
                 aria-hidden="true"
               >
+                <div className="catCard__topBar"></div>
+                <div className="catCard__watermark"></div>
                 <div className="catCard__media">
                   <div className="catSkeleton catSkeleton--media" />
                 </div>
@@ -92,8 +94,8 @@ export default function ProductCategories() {
                     <div className="catSkeleton catSkeleton--title" />
                     <div className="catSkeleton catSkeleton--desc" />
                   </div>
-                  <div className="catSkeleton catSkeleton--cta" />
                 </div>
+                <div className="catSkeleton catSkeleton--cta" />
               </div>
             ))
             : categories.slice(0, 4).map((cat, index) => {
@@ -109,6 +111,8 @@ export default function ProductCategories() {
                   role="listitem"
                   aria-label={cat.title}
                 >
+                  <div className="catCard__topBar"></div>
+                  <div className="catCard__watermark"></div>
                   <div className="catCard__media">
                     <img className="catCard__img" src={src} alt="" loading="lazy" decoding="async" />
                   </div>
@@ -117,10 +121,10 @@ export default function ProductCategories() {
                       <h3 className="catCard__title">{cat.title}</h3>
                       <p className="catCard__desc">{cat.description}</p>
                     </div>
-                    <span className="catCard__cta">
-                      Explore <span aria-hidden="true">→</span>
-                    </span>
                   </div>
+                  <span className="catCard__cta">
+                    Explore <span aria-hidden="true">→</span>
+                  </span>
                 </a>
               )
             })}

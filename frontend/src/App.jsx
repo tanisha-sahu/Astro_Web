@@ -8,9 +8,21 @@ import BlogsPage from './pages/BlogsPage.jsx'
 import ContactPage from './pages/ContactPage.jsx'
 import CartPage from './pages/CartPage.jsx'
 import SimplePage from './pages/SimplePage.jsx'
+import SignupPage from './pages/SignupPage.jsx'
+import LoginPage from './pages/LoginPage.jsx'
+import ProfilePage from './pages/ProfilePage.jsx'
+import ProtectedRoute from './components/ProtectedRoute.jsx'
+import useAuthStore from './store/authStore.js'
+import { useEffect } from 'react'
 import './App.css'
 
 function App() {
+  const { checkAuth } = useAuthStore()
+
+  useEffect(() => {
+    checkAuth()
+  }, [checkAuth])
+
   return (
     <>
       <Header />
@@ -23,6 +35,14 @@ function App() {
           <Route path="/astro-consultation" element={<AstroConsultationPage />} />
           <Route path="/blogs" element={<BlogsPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          
+          {/* Protected Routes */}
+          <Route element={<ProtectedRoute />}>
+            <Route path="/profile" element={<ProfilePage />} />
+          </Route>
+
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>

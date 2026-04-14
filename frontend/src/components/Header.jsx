@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
+import useAuthStore from '../store/authStore'
 import './Header.css'
 
 const NAV_LINKS = [
@@ -22,6 +23,7 @@ const TOP_NAV_LINKS = [
 ]
 
 export default function Header() {
+  const { isAuthenticated, logout } = useAuthStore()
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const navId = useMemo(() => 'primary-navigation', [])
@@ -135,14 +137,22 @@ export default function Header() {
         </nav>
 
         <div className="headerRight">
-          <a className="iconBtn" href="#profile" aria-label="Profile">
-            <svg viewBox="0 0 24 24" role="presentation" aria-hidden="true">
-              <path
-                d="M12 12.2a4.6 4.6 0 1 0-4.6-4.6A4.6 4.6 0 0 0 12 12.2Zm0 2.2c-4.3 0-7.8 2.3-7.8 5.2 0 .8.7 1.4 1.5 1.4h12.6c.8 0 1.5-.6 1.5-1.4 0-2.9-3.5-5.2-7.8-5.2Z"
-                fill="currentColor"
-              />
-            </svg>
-          </a>
+          {isAuthenticated ? (
+            <div className="user-nav">
+              <Link className="iconBtn" to="/profile" aria-label="Profile">
+                <svg viewBox="0 0 24 24" role="presentation" aria-hidden="true">
+                  <path
+                    d="M12 12.2a4.6 4.6 0 1 0-4.6-4.6A4.6 4.6 0 0 0 12 12.2Zm0 2.2c-4.3 0-7.8 2.3-7.8 5.2 0 .8.7 1.4 1.5 1.4h12.6c.8 0 1.5-.6 1.5-1.4 0-2.9-3.5-5.2-7.8-5.2Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </Link>
+            </div>
+          ) : (
+            <Link className="loginBtn" to="/login">
+              Login
+            </Link>
+          )}
           <Link className="iconBtn" to="/cart" aria-label="Cart">
             <svg viewBox="0 0 24 24" role="presentation" aria-hidden="true">
               <path
@@ -193,10 +203,29 @@ export default function Header() {
           </button>
         </div>
         <nav id={navId} className="nav nav--mobile" aria-label="Primary mobile">
+          {isAuthenticated ? (
+            <NavLink
+              to="/profile"
+              className={({ isActive }) => `nav__link nav__link--mobile ${isActive ? 'nav__link--active' : ''}`}
+              onClick={onNavClick}
+              style={{ '--i': 0 }}
+            >
+              My Profile
+            </NavLink>
+          ) : (
+            <NavLink
+              to="/login"
+              className={({ isActive }) => `nav__link nav__link--mobile ${isActive ? 'nav__link--active' : ''}`}
+              onClick={onNavClick}
+              style={{ '--i': 0 }}
+            >
+              Login / Sign Up
+            </NavLink>
+          )}
           {NAV_LINKS.map((l, index) => (
             <NavLink
               key={l.to}
-              style={{ '--i': index }}
+              style={{ '--i': index + 1 }}
               className={({ isActive }) => 
                 `nav__link nav__link--mobile ${l.label === 'Sanatani life' ? 'nav__link--highlight' : ''} ${isActive ? 'nav__link--active' : ''}`
               }

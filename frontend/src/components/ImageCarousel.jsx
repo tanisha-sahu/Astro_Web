@@ -11,6 +11,8 @@ export default function ImageCarousel({ slides }) {
         src: s.src ?? placeholderSrc,
         title: s.title,
         subtitle: s.subtitle,
+        features: s.features || [],
+        cta: s.cta || null,
         alt: `Astrology slide ${i + 1}`,
       }))
     }
@@ -96,7 +98,22 @@ export default function ImageCarousel({ slides }) {
               {(s.title || s.subtitle) && (
                 <figcaption className="carouselContent">
                   {s.title && <h2 className="carouselTitle">{s.title}</h2>}
+                  <div className="carouselDivider"></div>
                   {s.subtitle && <p className="carouselSubtitle">{s.subtitle}</p>}
+                  
+                  {s.features && s.features.length > 0 && (
+                    <ul className="carouselFeatures">
+                      {s.features.map((f, fi) => (
+                        <li key={fi} className="featureItem">{f}</li>
+                      ))}
+                    </ul>
+                  )}
+
+                  {s.cta && (
+                    <a href={s.cta.link} className="carouselCTA">
+                      {s.cta.text}
+                    </a>
+                  )}
                 </figcaption>
               )}
             </figure>
