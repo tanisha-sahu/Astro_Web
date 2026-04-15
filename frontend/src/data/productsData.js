@@ -1,6 +1,6 @@
 export const PRODUCTS = [
-  { id: 1, name: 'Nepal Rudraksha', img: 'https://via.placeholder.com/300x300/8B0000/FFFFFF?text=Rudraksha' },
-  { id: 2, name: 'Yellow Sapphire', img: 'https://via.placeholder.com/300x300/FFD700/8B0000?text=Sapphire' },
+  { id: 1, name: 'Destiny Script', img: '/destiny_script_report_1776257927402.png' },
+  { id: 2, name: 'Navratna Pendant', img: '/navratna_stone_pendant_1776257944023.png' },
   { id: 3, name: 'Crystal Mala', img: 'https://via.placeholder.com/300x300/FF8C00/FFFFFF?text=Mala' },
   { id: 4, name: 'Silver Pendant', img: 'https://via.placeholder.com/300x300/B22222/FFFFFF?text=Pendant' },
   { id: 5, name: 'Emerald Ring', img: 'https://via.placeholder.com/300x300/8B0000/FFFFFF?text=Emerald' },

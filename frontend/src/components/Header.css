@@ -351,7 +351,7 @@
 }
 
 .loginBtn {
-  padding: 8px 20px;
+  padding: 6px 16px; /* Reduced button height */
   background: linear-gradient(135deg, var(--primary) 0%, var(--red-900) 100%);
   color: var(--white);
   text-decoration: none;
@@ -375,7 +375,7 @@
   }
 
   .loginBtn {
-    padding: 6px 12px;
+    padding: 5px 10px;
     font-size: 11px;
     letter-spacing: 0.5px;
   }

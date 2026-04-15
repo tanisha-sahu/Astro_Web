@@ -191,8 +191,8 @@
 .foundation-bottom {
   border-top: 1px solid var(--yellow);
   /* Solid gold border */
-  background: var(--primary);
-  /* Red background */
+  background: var(--red-900);
+  /* Match header red tone */
   padding: 12px 0;
 }
 

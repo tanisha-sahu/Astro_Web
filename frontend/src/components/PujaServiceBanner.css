@@ -1,0 +1,190 @@
+.puja-banner {
+  background-color: var(--orange-700); /* Matched to the warm theme */
+  padding: 40px 0 60px; /* Added back some top space as requested */
+  overflow: visible; /* Prevent clipping of trailing images */
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 640px; /* Minor increase as requested */
+}
+
+.puja-banner__container {
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px; /* Tighter gap to bring images closer to text */
+  padding: 0 20px;
+}
+
+/* Text Content Styling */
+.puja-banner__content {
+  text-align: center;
+  z-index: 10;
+  max-width: 900px;
+  color: var(--white);
+}
+
+.puja-banner__title {
+  font-family: var(--heading);
+  font-size: 36px; /* Reduced from 48px */
+  color: var(--white);
+  margin-top: 0; /* Removed top margin */
+  margin-bottom: 12px;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  line-height: 1.2;
+}
+
+.puja-banner__mantra {
+  font-size: 18px; /* Reduced from 24px */
+  color: var(--yellow-100);
+  opacity: 0.9;
+  letter-spacing: 2px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.puja-banner__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.puja-banner__cta {
+  background: linear-gradient(135deg, var(--yellow-400) 0%, var(--orange-400) 100%);
+  color: var(--primary);
+  border: none;
+  padding: 12px 32px; /* Reduced from 16px 40px */
+  font-size: 16px; /* Reduced from 18px */
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.puja-banner__cta:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.puja-banner__trust {
+  font-size: 14px;
+  color: var(--yellow-100);
+  letter-spacing: 0.5px;
+  opacity: 0.8;
+}
+
+/* Staggered Grid Layout */
+.puja-banner__grid {
+  display: flex;
+  gap: 32px; /* Reduced horizontal spacing for compactness */
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 15px;
+  position: relative;
+}
+
+.puja-banner__img-wrap {
+  flex: 1;
+  max-width: 220px;
+  height: auto;
+  aspect-ratio: 9 / 14;
+  overflow: hidden;
+  border-radius: 40px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+  transition: transform 0.5s ease;
+}
+
+.puja-banner__img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Specific U-Shape arrangement - Slightly larger images */
+.puja-banner__img--center {
+  max-width: 280px; /* Increased from 240px */
+  z-index: 5;
+  transform: translateY(50px); /* Adjusted from 40px */
+  aspect-ratio: 1 / 1.1; 
+}
+
+.puja-banner__img--inner-left,
+.puja-banner__img--inner-right {
+  max-width: 190px; /* Increased from 160px */
+  z-index: 4;
+  transform: translateY(-5px); /* Adjusted to keep smooth curve */
+}
+
+.puja-banner__img--outer-left,
+.puja-banner__img--outer-right {
+  max-width: 150px; /* Increased from 130px */
+  z-index: 3;
+  transform: translateY(-70px); /* Adjusted to keep smooth curve */
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .puja-banner__img-wrap {
+    max-width: 180px;
+  }
+  .puja-banner__img--center {
+    max-width: 240px;
+  }
+  .puja-banner__title {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 900px) {
+  .puja-banner {
+    padding: 60px 0;
+    min-height: auto;
+  }
+  .puja-banner__grid {
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 0 40px;
+  }
+  .puja-banner__img--outer-left,
+  .puja-banner__img--outer-right {
+    display: none;
+  }
+  .puja-banner__img-wrap {
+    flex: none;
+    width: calc(33% - 15px);
+  }
+}
+
+@media (max-width: 600px) {
+  .puja-banner__title {
+    font-size: 28px;
+  }
+  .puja-banner__mantra {
+    font-size: 18px;
+  }
+  .puja-banner__grid {
+    gap: 10px;
+    padding: 0 10px;
+  }
+  .puja-banner__img-wrap {
+    width: calc(33% - 7px);
+    border-radius: 20px;
+  }
+  .puja-banner__img--inner-left,
+  .puja-banner__img--inner-right {
+    transform: translateY(0);
+  }
+  .puja-banner__img--center {
+    transform: translateY(30px);
+  }
+}

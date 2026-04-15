@@ -32,7 +32,7 @@
 .section-header__subtitle {
   font-size: 10px;
   font-weight: 800;
-  color: var(--yellow);
+  color: #c47f00; /* Darker yellow for better visibility */
   text-transform: uppercase;
   letter-spacing: 4px;
   /* Increased for authority */
@@ -40,7 +40,7 @@
   font-family: var(--sans);
   position: relative;
   display: inline-block;
-  text-shadow: 0 0 10px rgba(var(--yellow-rgb), 0.3);
+  text-shadow: 0 0 6px rgba(196, 127, 0, 0.35);
 }
 
 .section-header__title {
