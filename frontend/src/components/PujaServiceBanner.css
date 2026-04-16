@@ -1,5 +1,5 @@
 .puja-banner {
-  background-color: var(--orange-700); /* Matched to the warm theme */
+  background-color: var(--orange-500); /* Sanatani Life Brand Color (#FF7722) */
   padding: 40px 0 60px; /* Added back some top space as requested */
   overflow: visible; /* Prevent clipping of trailing images */
   position: relative;
@@ -56,7 +56,7 @@
 }
 
 .puja-banner__cta {
-  background: linear-gradient(135deg, var(--yellow-400) 0%, var(--orange-400) 100%);
+  background: linear-gradient(135deg, var(--yellow-400) 0%, #FF7722 100%);
   color: var(--primary);
   border: none;
   padding: 12px 32px; /* Reduced from 16px 40px */

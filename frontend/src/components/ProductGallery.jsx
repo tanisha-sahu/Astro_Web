@@ -50,7 +50,7 @@ const ProductGallery = () => {
             <div key={product.id} className="item-card reference-style">
               <div className="card-top">
                 <div className="zodiac-overlay"></div>
-                <div className="sacred-om">ॐ</div>
+                <div className="brand-mark">✦</div>
                 <img src={product.img} alt={product.name} className="product-img-main" loading="lazy" />
               </div>
 

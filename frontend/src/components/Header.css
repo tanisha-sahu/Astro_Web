@@ -93,20 +93,26 @@
 }
 
 .siteHeader__inner {
-  height: 84px;
+  height: 88px; /* Balanced compact height when un-scrolled */
   display: flex;
   align-items: center;
-  transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  justify-content: space-between;
+  padding: 0 40px;
+  max-width: 1320px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  transition: height 400ms cubic-bezier(0.4, 0, 0.2, 1);
   
-  @media (max-width: 768px) {
-    height: 86px; /* Balanced boutique height */
+  @media (max-width: 1024px) {
+    padding: 0 24px;
+    height: 84px;
   }
 }
 
 .siteHeader--scrolled .siteHeader__inner {
-  height: 84px; /* Fixed height for consistent presence */
+  height: 84px; /* User-approved height after scroll */
   
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     height: 86px;
   }
 }
@@ -116,17 +122,7 @@
   transition: opacity 0.3s ease;
 }
 
-.siteHeader__inner {
-  height: var(--header-h);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 40px;
-  max-width: 1320px;
-  margin: 0 auto;
-  box-sizing: border-box;
-  transition: height 400ms cubic-bezier(0.2, 1, 0.2, 1);
-}
+/* Consolidated into the section above */
 
 /* Brand Implementation */
 .brand {

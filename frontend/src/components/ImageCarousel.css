@@ -38,13 +38,9 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  filter: brightness(0.7);
-  transition: transform 12s linear;
 }
 
-.carouselSlide--active .carouselImage {
-  transform: scale(1.15);
-}
+/* Removed zoom effect */
 
 .carouselContent {
   position: absolute;
@@ -59,8 +55,6 @@
   color: var(--white);
   z-index: 5;
   pointer-events: none;
-  /* Dynamic Side Gradient for text contrast */
-  background: linear-gradient(to left, rgba(26, 10, 10, 0.8) 0%, rgba(26, 10, 10, 0.4) 40%, transparent 100%);
 }
 
 .carouselTitle {
@@ -69,11 +63,8 @@
   font-weight: 400;
   margin: 0;
   line-height: 1.1;
-  /* Gold to Orange gradient for "Pop" */
-  background: linear-gradient(135deg, var(--gold) 0%, #ff6b00 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+  /* Deep Red for high contrast and brand alignment */
+  color: var(--primary);
   opacity: 0;
   transform: translateY(30px);
 }
@@ -82,7 +73,7 @@
   width: 250px;
   height: 20px;
   margin: 10px 0;
-  background-image: url("data:image/svg+xml,%3Csvg width='250' height='20' viewBox='0 0 250 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 10H110M140 10H250' stroke='%23ffb800' stroke-width='1'/%3E%3Cpath d='M125 0L129 7H136L130 11L132 18L125 14L118 18L120 11L114 7H121L125 0Z' fill='%23ffb800'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg width='250' height='20' viewBox='0 0 250 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 10H110M140 10H250' stroke='%239b1c1c' stroke-width='1'/%3E%3Cpath d='M125 0L129 7H136L130 11L132 18L125 14L118 18L120 11L114 7H121L125 0Z' fill='%239b1c1c'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: center;
   opacity: 0;
@@ -102,8 +93,7 @@
   margin: 0 0 24px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--white);
-  text-shadow: 0 0 10px rgba(var(--red-rgb), 0.8);
+  color: var(--black);
   opacity: 0;
   transform: translateY(20px);
 }
@@ -120,34 +110,31 @@
 }
 
 .featureItem {
-  font-family: var(--script);
-  font-size: 24px;
-  color: var(--white);
+  font-family: var(--sans);
+  font-size: 18px;
+  color: var(--black);
   display: flex;
   align-items: center;
   gap: 12px;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  font-weight: 500;
 }
 
 .featureItem::before {
   content: '●';
-  color: var(--gold);
+  color: var(--primary);
   font-size: 14px;
 }
 
 .carouselCTA {
   display: inline-block;
   padding: 16px 48px;
-  /* Deep Red Theme Gradient */
-  background: linear-gradient(135deg, var(--red-700) 0%, var(--red-900) 100%);
+  background: #FF7722;
   color: var(--white);
   font-family: var(--heading);
   font-weight: 700;
   font-size: 18px;
   text-decoration: none;
-  border-radius: 50px;
-  border: 1px solid var(--gold);
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4), inset 0 0 8px rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
   transition: all 400ms cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: auto;
   opacity: 0;
@@ -158,8 +145,8 @@
 
 .carouselCTA:hover {
   transform: translateY(-5px) scale(1.05);
-  box-shadow: 0 12px 30px rgba(var(--red-rgb), 0.4), 0 0 15px var(--gold);
-  background: linear-gradient(135deg, var(--red-600) 0%, var(--red-800) 100%);
+  background: #e6661a;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
 .carouselSlide--active .carouselTitle {
@@ -213,8 +200,7 @@
 
 .arrowBtn:hover {
   color: var(--white);
-  transform: scale(1.2);
-  text-shadow: 0 0 20px rgba(var(--gold-rgb), 0.4);
+  transform: scale(1.1);
 }
 
 @media (max-width: 1024px) {
@@ -229,7 +215,7 @@
 
 @media (max-width: 768px) {
   .carouselContainer { height: 500px; }
-  .carouselContent { padding: 40px 20px; align-items: center; text-align: center; background: rgba(0,0,0,0.4); }
+  .carouselContent { padding: 40px 20px; align-items: center; text-align: center; }
   .carouselTitle { font-size: 42px; }
   .carouselSubtitle { font-size: 20px; }
   .carouselDivider { width: 150px; }

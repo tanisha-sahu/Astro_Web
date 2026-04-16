@@ -1,53 +1,20 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import SectionHeader from '../components/SectionHeader'
+import { useCart } from '../context/CartContext'
 import './CartPage.css'
 
-const INITIAL_CART = [
-  {
-    id: 1,
-    name: 'Sacred Nepal Rudraksha',
-    price: 1250,
-    qty: 1,
-    img: '/Best Seller/rudraksh.webp',
-    category: 'Sacred Beads'
-  },
-  {
-    id: 2,
-    name: 'Natural Navratna Ring',
-    price: 45000,
-    qty: 1,
-    img: '/Best Seller/navratn.jpeg',
-    category: 'Gemstones'
-  }
-]
-
 export default function CartPage() {
-  const [items, setItems] = useState(INITIAL_CART)
+  const { items, updateQty, removeItem, subtotal } = useCart()
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Simulate loading
-    const timer = setTimeout(() => setLoading(false), 800)
+    // Simulate loading for UI smoothness
+    const timer = setTimeout(() => setLoading(false), 500)
     return () => clearTimeout(timer)
   }, [])
 
-  const updateQty = (id, delta) => {
-    setItems(curr => curr.map(item => {
-      if (item.id === id) {
-        const newQty = Math.max(1, item.qty + delta)
-        return { ...item, qty: newQty }
-      }
-      return item
-    }))
-  }
-
-  const removeItem = (id) => {
-    setItems(curr => curr.filter(item => item.id !== id))
-  }
-
-  const subtotal = items.reduce((acc, item) => acc + (item.price * item.qty), 0)
-  const shipping = subtotal > 5000 ? 0 : 150
+  const shipping = items.length === 0 ? 0 : (subtotal > 5000 ? 0 : 150)
   const gst = Math.round(subtotal * 0.18)
   const total = subtotal + shipping + gst
 

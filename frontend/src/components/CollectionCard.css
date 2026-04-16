@@ -81,7 +81,7 @@
 .catCard__topBar {
   width: 100%;
   height: 28px;
-  background: var(--orange-400); /* Warm accent like in reference */
+  background: #FF7722; /* Sanatani Life Brand Color */
   margin-bottom: 2px;
 }
 
@@ -160,7 +160,7 @@
   font-size: 13px;
   font-weight: 800;
   color: var(--white);
-  background: var(--orange-600); /* Matched to the sacred orange theme */
+  background: #FF7722; /* Sanatani Life Brand Color */
   text-transform: uppercase;
   letter-spacing: 2px;
   display: flex;
@@ -230,6 +230,7 @@
   background: var(--white); /* White background for page-level section */
   padding: 40px 0;
 }
+
 
 @media (max-width: 640px) {
   .catCard {

@@ -32,7 +32,7 @@ const CustomerStories = () => {
   return (
     <section className="divine-narratives">
       <div className="celestial-bg-overlay"></div>
-      <div className="divine-container">
+      <div className="stories-grid-layout">
         <div className="customer-stories-header-wrap">
           <SectionHeader
             title="Divine Narratives"

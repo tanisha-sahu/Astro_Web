@@ -1,5 +1,6 @@
 import PujaServiceBanner from '../components/PujaServiceBanner.jsx'
 import SanataniLifeCategories from '../components/SanataniLifeCategories.jsx'
+import DivineProductSection from '../components/DivineProductSection.jsx'
 import ProductGallery from '../components/ProductGallery.jsx'
 
 export default function SanataniLifePage() {
@@ -11,8 +12,9 @@ export default function SanataniLifePage() {
 
       <div className="page">
         <SanataniLifeCategories />
-        <ProductGallery />
+        <DivineProductSection />
       </div>
+      <ProductGallery />
     </>
   )
 }

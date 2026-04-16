@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import './ProductCategories.css'
 import { fetchProductCategories } from '../api/productCategories.js'
 import SectionHeader from './SectionHeader.jsx'
@@ -51,13 +52,34 @@ export default function ProductCategories() {
                 isLoading={true}
               />
             ))
-            : categories.map((cat, index) => (
-              <CollectionCard
-                key={cat.id}
-                item={cat}
-                index={index}
-              />
-            ))}
+            : categories.slice(0, 4).map((cat, index) => {
+              const src = cat.image || svgCategoryPlaceholder(cat.title, cat.colors[0], cat.colors[1])
+
+              return (
+                <Link
+                  key={cat.id}
+                  id={cat.id}
+                  to={`/collection/${cat.id}`}
+                  className="catCard"
+                  style={{ '--card-index': index }}
+                  role="listitem"
+                  aria-label={cat.title}
+                >
+                  <div className="catCard__media">
+                    <img className="catCard__img" src={src} alt="" loading="lazy" decoding="async" />
+                  </div>
+                  <div className="catCard__body">
+                    <div className="catCard__content">
+                      <h3 className="catCard__title">{cat.title}</h3>
+                      <p className="catCard__desc">{cat.description}</p>
+                    </div>
+                    <span className="catCard__cta">
+                      Explore <span aria-hidden="true">→</span>
+                    </span>
+                  </div>
+                </Link>
+              )
+            })}
         </div>
       </div>
     </section>
