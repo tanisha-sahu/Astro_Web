@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import './BlogsPage.css';
-import SectionHeader from '../components/SectionHeader';
+import SectionHeader from '../components/SectionHeader/SectionHeader';
 
 const BLOG_DATA = [
   {

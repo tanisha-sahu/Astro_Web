@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import './AstroConsultationPage.css';
-import SectionHeader from '../components/SectionHeader';
-import AstrologerTeam from '../components/AstrologerTeam';
-import ConsultationBenefits from '../components/ConsultationBenefits';
-import Testimonials from '../components/Testimonials';
+import SectionHeader from '../components/SectionHeader/SectionHeader';
+import AstrologerTeam from '../components/AstrologerTeam/AstrologerTeam';
+import ConsultationBenefits from '../components/ConsultationBenefits/ConsultationBenefits';
+import Testimonials from '../components/Testimonials/Testimonials';
 
 const SERVICES_DATA = [
   {

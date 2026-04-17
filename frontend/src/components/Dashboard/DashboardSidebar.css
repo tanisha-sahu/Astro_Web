@@ -1,0 +1,238 @@
+.dashboard-sidebar {
+  width: 240px;
+  height: 100vh;
+  background: #ffffff;
+  border-right: 1px solid rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1000;
+  box-shadow: 10px 0 30px rgba(0, 0, 0, 0.01);
+  will-change: width;
+}
+
+.dashboard-sidebar.closed {
+  width: 70px;
+}
+
+.sidebar-header {
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  min-height: 64px;
+  transition: padding 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.closed .sidebar-header {
+  padding: 16px;
+  justify-content: center;
+}
+
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  overflow: hidden;
+  max-width: 160px;
+  opacity: 1;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.closed .sidebar-logo {
+  max-width: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.logo-img {
+  height: 28px;
+  width: auto;
+  min-width: 28px;
+  object-fit: contain;
+}
+
+.logo-text {
+  font-family: var(--heading);
+  font-weight: 700;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  color: var(--primary);
+}
+
+.toggle-btn {
+  background: var(--red-50);
+  border: none;
+  color: var(--primary);
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+}
+
+.closed .toggle-btn {
+  transform: rotate(180deg);
+}
+
+.toggle-btn:hover {
+  background: var(--red-100);
+  transform: scale(1.05);
+}
+
+.sidebar-nav {
+  flex: 1;
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  color: #64748b;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.nav-item:hover {
+  background: var(--red-50);
+  color: var(--primary);
+}
+
+.nav-item.active {
+  background: var(--primary);
+  color: var(--white);
+  box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.2);
+}
+
+.nav-icon {
+  min-width: 22px;
+}
+
+.nav-label {
+  font-weight: 500;
+  font-size: 0.75rem;
+  opacity: 1;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  max-width: 150px;
+  overflow: hidden;
+}
+
+.closed .nav-label {
+  opacity: 0;
+  max-width: 0;
+  padding: 0;
+  margin: 0;
+  pointer-events: none;
+}
+
+.nav-divider {
+  height: 1px;
+  background: rgba(0, 0, 0, 0.05);
+  margin: 24px 0;
+}
+
+.nav-group.bottom {
+  margin-top: auto;
+  padding-bottom: 24px;
+}
+
+.darkmode-toggle .nav-item {
+  cursor: default;
+}
+
+.toggle-switch {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  max-width: 100px;
+  opacity: 1;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.closed .toggle-switch {
+  max-width: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.toggle-switch input {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
+
+.toggle-switch label {
+  cursor: pointer;
+  text-indent: -9999px;
+  width: 44px;
+  height: 22px;
+  background: #cbd5e1;
+  display: block;
+  border-radius: 100px;
+  position: relative;
+}
+
+.toggle-switch label:after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border-radius: 90px;
+  transition: 0.3s;
+}
+
+.toggle-switch input:checked + label {
+  background: var(--accent);
+}
+
+.toggle-switch input:checked + label:after {
+  left: calc(100% - 3px);
+  transform: translateX(-100%);
+}
+
+@media (max-width: 768px) {
+  .dashboard-sidebar {
+    position: fixed;
+    transform: translateX(-100%);
+    height: 100vh;
+    visibility: hidden;
+    pointer-events: none;
+  }
+  
+  .dashboard-sidebar.open {
+    transform: translateX(0);
+    visibility: visible;
+    pointer-events: all;
+    width: 280px;
+    box-shadow: 20px 0 50px rgba(0, 0, 0, 0.1);
+  }
+
+  .closed .nav-label, .closed .logo-text {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}

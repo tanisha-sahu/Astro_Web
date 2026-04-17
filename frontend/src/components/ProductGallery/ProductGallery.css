@@ -1,0 +1,249 @@
+:root {
+    --astro-red: #8B0000;
+    --astro-orange: #ff7000;
+    --astro-yellow: #FFD700;
+    --astro-white: #FFFFFF;
+    --accent: #ff7000;
+  }
+  
+.product-showcase {
+    padding: 100px 0;
+    width: 100%;
+    text-align: center;
+    background: radial-gradient(circle at top center, #ffffff 0%, #fdfaf5 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.gallery-header {
+    margin-bottom: 50px;
+    position: relative;
+    z-index: 10;
+}
+
+.gallery-title {
+    font-family: var(--heading);
+    color: var(--primary);
+    font-size: 3rem;
+    margin: 0;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.gallery-line {
+    width: 80px;
+    height: 3px;
+    background: var(--accent);
+    margin: 15px auto 0;
+}
+
+/* Horizontal Scroll Container */
+.product-scroll-container {
+    width: 100%;
+    padding: 20px 0 80px; /* Removed horizontal padding to allow cards to reach edges */
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    cursor: grab;
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.product-scroll-container::-webkit-scrollbar {
+    display: none;
+}
+
+.product-track {
+    display: flex;
+    gap: 30px; /* More compact gap */
+    width: max-content;
+    padding: 0 10vw; /* Provide breathing room at start/end */
+}
+
+/* Card Design Refinement */
+.item-card.reference-style {
+    width: 300px;
+    background: #ffffff;
+    border: 1px solid rgba(var(--primary-rgb), 0.08);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.03), 0 1px 4px rgba(0,0,0,0.02);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    border-radius: 12px; /* Adding some rounding to the main card */
+    
+    /* Elegant Notches */
+    clip-path: polygon(
+        0% 0%, 100% 0%, 
+        100% 47%, 98.5% 50%, 100% 53%, 
+        100% 100%, 0% 100%, 
+        0% 53%, 1.5% 50%, 0% 47%
+    );
+}
+
+.item-card.reference-style:hover {
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: 0 30px 60px rgba(var(--primary-rgb), 0.12);
+    border-color: rgba(var(--primary-rgb), 0.2);
+}
+
+/* Card Top Section (Cream + Watermarks) */
+.card-top {
+    height: 200px; /* Reduced further from 240px */
+    background: #fde8cc; /* Warmer cream like in reference */
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+/* Zodiac Watermark Pattern */
+.zodiac-overlay {
+    position: absolute;
+    inset: 0;
+    opacity: 0.1;
+    background-image: radial-gradient(circle at 20% 30%, transparent 100px, rgba(0,0,0,0.05) 101px),
+                      radial-gradient(circle at 80% 70%, transparent 80px, rgba(0,0,0,0.05) 81px);
+    background-size: 200px 200px;
+    pointer-events: none;
+}
+
+/* Sacred Symbols */
+.brand-mark {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 32px;
+    color: var(--accent);
+    opacity: 0.12;
+    pointer-events: none;
+    z-index: 1;
+    animation: celestial-spin 15s linear infinite;
+}
+
+@keyframes celestial-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.product-img-main {
+    max-width: 80%;
+    max-height: 90%;
+    object-fit: contain;
+    z-index: 2;
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.2));
+    transition: transform 0.5s ease;
+}
+
+.item-card:hover .product-img-main {
+    transform: scale(1.05) rotate(2deg);
+}
+
+/* Card Bottom Section (White + Info) */
+.card-bottom {
+    padding: 24px;
+    text-align: left;
+    background: #ffffff;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.product-title {
+    font-family: var(--heading);
+    font-size: 1.15rem; 
+    color: #433434;
+    font-weight: 700;
+    margin: 0 0 4px;
+    letter-spacing: -0.2px;
+}
+
+.product-subtitle {
+    font-size: 0.8rem;
+    color: #8c7a7a;
+    margin-bottom: 12px;
+    line-height: 1.4;
+}
+
+/* Pricing Section */
+.product-pricing {
+    font-size: 1rem; /* Reduced further from 1.05rem */
+    margin-bottom: 15px;
+}
+
+.price-label {
+    color: #8c7a7a;
+    font-weight: 500;
+    font-size: 0.8rem;
+}
+
+.price-old {
+    text-decoration: line-through;
+    color: #bfa8a8;
+    margin-right: 6px;
+    font-size: 0.85rem;
+}
+
+.price-current {
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 1.05rem;
+}
+
+/* Premium CTA Button - Compact Edition */
+.buy-now-btn {
+    width: 100%;
+    max-width: 160px; /* Constrained width for a more standard button look */
+    background: linear-gradient(135deg, #FFB347 0%, var(--orange-500) 100%);
+    color: #ffffff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 12px rgba(var(--orange-rgb), 0.2);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.buy-now-btn:hover {
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(var(--orange-rgb), 0.4);
+}
+
+.arrow-icon {
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+/* Responsive Logic */
+@media (max-width: 1024px) {
+    .item-card.reference-style { width: 260px; }
+    .gallery-title { font-size: 2.2rem; }
+}
+
+@media (max-width: 768px) {
+    .product-scroll-container { padding: 15px 20px 40px; }
+    .item-card.reference-style { width: 240px; }
+    .card-top { height: 180px; }
+    .product-title { font-size: 1rem; }
+}
+
+@media (max-width: 480px) {
+    .item-card.reference-style { width: 220px; }
+    .card-bottom { padding: 12px; }
+    .product-title { font-size: 0.9rem; }
+    .buy-now-btn { font-size: 0.9rem; padding: 8px; }
+}

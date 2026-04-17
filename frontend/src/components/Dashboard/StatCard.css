@@ -1,0 +1,87 @@
+.stat-card {
+  background: #ffffff;
+  padding: 18px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  flex: 1;
+  min-width: 180px;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.stat-info h3 {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #64748b;
+  margin: 0 0 4px 0;
+  font-family: var(--sans);
+}
+
+.stat-value {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.stat-value .number {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--black);
+}
+
+.stat-value .trend {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #10b981; /* Green for positive trends */
+}
+
+.stat-icon-wrapper {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Color Variants */
+.stat-card.blue .stat-icon-wrapper {
+  background: #eff6ff;
+  color: #3b82f6;
+}
+
+.stat-card.orange .stat-icon-wrapper {
+  background: rgba(var(--orange-rgb), 0.05);
+  color: var(--orange-500);
+}
+
+.stat-card.green .stat-icon-wrapper {
+  background: #f0fdf4;
+  color: #22c55e;
+}
+
+.stat-card.purple .stat-icon-wrapper {
+  background: #faf5ff;
+  color: #a855f7;
+}
+
+.stat-card.red .stat-icon-wrapper {
+  background: #fef2f2;
+  color: #ef4444;
+}
+
+@media (max-width: 1200px) {
+  .stat-card {
+    padding: 16px;
+  }
+  .stat-value .number {
+    font-size: 1.1rem;
+  }
+}

@@ -1,0 +1,231 @@
+/* --- Layout System for Collections --- */
+
+.cat-header-wrap {
+  max-width: 1320px;
+  margin: 0 auto 20px;
+  padding: 0 40px;
+  position: relative;
+  z-index: 2;
+  box-sizing: border-box;
+}
+
+.cat-slider-wrapper {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  padding-bottom: 12px;
+  box-sizing: border-box;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.cat-slider-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.catGrid {
+  display: flex;
+  gap: 32px;
+  width: max-content;
+  padding: 20px 40px 30px;
+  box-sizing: border-box;
+  scroll-snap-type: x mandatory;
+}
+
+@media (max-width: 1200px) {
+  .catGrid {
+    gap: 24px;
+    padding: 20px 30px 30px;
+  }
+}
+
+@media (max-width: 640px) {
+  .catGrid {
+    gap: 16px;
+    padding: 14px 16px 20px;
+  }
+}
+
+/* --- The Truly Divine Card --- */
+.catCard {
+  min-width: 320px;
+  flex: 0 0 auto;
+  text-decoration: none;
+  background: linear-gradient(135deg, var(--yellow-100) 0%, var(--orange-100) 100%);
+  border-radius: 4px; /* Sharper corners for ticket look */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  scroll-snap-align: start;
+
+  /* Ticket Shape with side notches */
+  clip-path: polygon(
+    0% 0%, 100% 0%, 
+    100% 44%, 96.5% 50%, 100% 56%, 
+    100% 100%, 0% 100%, 
+    0% 56%, 3.5% 50%, 0% 44%
+  );
+  
+  /* Shadow for clipped shapes needs filter drop-shadow */
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1));
+}
+
+.catCard:hover {
+  transform: translateY(-8px);
+  filter: drop-shadow(0 12px 24px rgba(var(--primary-rgb), 0.15));
+}
+
+
+
+/* Image Uniformity - FIXED Aspect Ratio */
+.catCard__media {
+  width: 100%;
+  height: 200px;
+  padding: 12px 12px 0; /* Frame effect */
+  overflow: hidden;
+  background: transparent;
+}
+
+.catCard__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px; /* Rounded corners for the image itself */
+  transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.catCard:hover .catCard__img {
+  transform: scale(1.05);
+}
+
+.catCard__body {
+  padding: 18px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Bulletproof Typography */
+.catCard__title {
+  font-family: var(--heading);
+  font-size: 14px;
+  color: var(--primary);
+  margin: 0 0 6px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.catCard__desc {
+  font-size: 12px;
+  color: var(--text-main);
+  opacity: 0.6;
+  margin: 0 0 15px;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.catCard__cta {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--white);
+  background: var(--orange-500); /* Sanatani Life Brand Color */
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px;
+  width: 100%;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.catCard:hover .catCard__cta {
+  background: var(--primary);
+  color: var(--white);
+  gap: 12px;
+}
+
+/* Skeleton Matching */
+
+
+.catCard--skeleton .catCard__media {
+  background: transparent;
+}
+
+.catSkeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #f8f8f8 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: cat-shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+@keyframes cat-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.catSkeleton--media {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+
+.catSkeleton--title {
+  width: 60%;
+  height: 14px;
+  margin-bottom: 10px;
+}
+
+.catSkeleton--desc {
+  width: 90%;
+  height: 10px;
+  margin-bottom: 8px;
+}
+
+.catSkeleton--cta {
+  width: 100%;
+  height: 46px;
+  border-radius: 0;
+}
+
+/* Page-level overrides for Sanatani Life */
+.sanataniCategoriesSection {
+  background: var(--white); /* White background for page-level section */
+  padding: 40px 0;
+}
+
+
+@media (max-width: 640px) {
+  .catCard {
+    min-width: 280px;
+    box-shadow: none !important;
+  }
+
+  .catCard__media {
+    height: 140px;
+  }
+
+  .catCard__body {
+    padding: 14px;
+  }
+
+  .catCard__title {
+    font-size: 13px;
+  }
+
+  .catCard__desc {
+    font-size: 11px;
+  }
+}

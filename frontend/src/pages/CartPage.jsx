@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import SectionHeader from '../components/SectionHeader'
+import SectionHeader from '../components/SectionHeader/SectionHeader'
 import { useCart } from '../context/CartContext'
 import './CartPage.css'
 

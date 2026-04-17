@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom'
 import { PRODUCTS } from '../data/productsData'
 import PRODUCT_CATEGORIES from '../data/productCategoriesData'
 import { useCart } from '../context/CartContext'
-import ProductCardCompact from '../components/ProductCardCompact'
+import ProductCardCompact from '../components/ProductCardCompact/ProductCardCompact'
 import './CollectionPage.css'
 
 // Custom Dropdown Component

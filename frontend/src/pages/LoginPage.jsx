@@ -45,7 +45,7 @@ export default function LoginPage() {
         // Handle mobile login logic here
         await login({ mobile: formData.mobile, otp: formData.otp })
       }
-      navigate('/profile')
+      navigate('/dashboard')
     } catch (err) {
       console.error('Login failed')
     }
@@ -193,7 +193,7 @@ export default function LoginPage() {
             )}
           </div>
 
-          <button type="submit" className="login-button" disabled={loading} style={{ marginTop: '30px' }}>
+          <button type="submit" className="login-button" disabled={loading}>
             {loading ? 'Entering Journey...' : 'Sign In'} <ArrowRight size={18} />
           </button>
         </form>
@@ -202,7 +202,7 @@ export default function LoginPage() {
           Don't have an account? <Link to="/signup">Join Journey</Link>
         </div>
 
-        <div className="celestial-separator" style={{ marginTop: '32px', opacity: 0.5 }}>
+        <div className="celestial-separator login-footer-separator">
           <div className="separator-line" style={{ width: '40px' }}></div>
           <Sparkles size={14} className="separator-star" />
           <div className="separator-line" style={{ width: '40px' }}></div>

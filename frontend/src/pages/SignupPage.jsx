@@ -42,7 +42,7 @@ export default function SignupPage() {
     e.preventDefault()
     try {
       await register(formData)
-      navigate('/profile')
+      navigate('/dashboard')
     } catch (err) {
       console.error('Registration failed')
     }

@@ -1,0 +1,55 @@
+.sanataniCategoriesSection {
+  padding: 60px 0;
+  background: var(--white);
+  position: relative;
+  overflow: hidden;
+}
+
+.cat-header-wrap {
+  max-width: 1320px;
+  margin: 0 auto 20px;
+  padding: 0 40px;
+  position: relative;
+  z-index: 2;
+  box-sizing: border-box;
+}
+  
+.cat-slider-wrapper {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  padding-bottom: 12px;
+  box-sizing: border-box;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.cat-slider-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.catGrid {
+  display: flex;
+  gap: 32px;
+  width: max-content;
+  padding: 20px 40px 30px;
+  box-sizing: border-box;
+}
+
+.marquee-grid {
+  animation: marquee-rtl 40s linear infinite;
+}
+
+.cat-slider-wrapper:hover .marquee-grid {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-rtl {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+

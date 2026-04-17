@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './ContactPage.css';
-import SectionHeader from '../components/SectionHeader';
+import SectionHeader from '../components/SectionHeader/SectionHeader';
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({

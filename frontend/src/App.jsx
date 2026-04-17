@@ -1,7 +1,7 @@
-import Header from './components/Header.jsx'
-import Footer from './components/Footer.jsx'
+import Header from './components/Header/Header.jsx'
+import Footer from './components/Footer/Footer.jsx'
 import { CartProvider } from './context/CartContext.jsx'
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import HomePage from './pages/HomePage.jsx'
 import SanataniLifePage from './pages/SanataniLifePage.jsx'
 import AstroConsultationPage from './pages/AstroConsultationPage.jsx'
@@ -14,21 +14,26 @@ import SimplePage from './pages/SimplePage.jsx'
 import SignupPage from './pages/SignupPage.jsx'
 import LoginPage from './pages/LoginPage.jsx'
 import ProfilePage from './pages/ProfilePage.jsx'
-import ProtectedRoute from './components/ProtectedRoute.jsx'
+import DashboardPage from './pages/DashboardPage.jsx'
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute.jsx'
 import useAuthStore from './store/authStore.js'
 import { useEffect } from 'react'
 import './App.css'
 
 function App() {
   const { checkAuth } = useAuthStore()
+  const location = useLocation()
 
   useEffect(() => {
     checkAuth()
   }, [checkAuth])
 
+  // Hide global Header and Footer on dashboard routes
+  const isDashboardRoute = location.pathname.startsWith('/dashboard')
+
   return (
     <CartProvider>
-      <Header />
+      {!isDashboardRoute && <Header />}
 
       <main>
         <Routes>
@@ -46,13 +51,14 @@ function App() {
           {/* Protected Routes */}
           <Route element={<ProtectedRoute />}>
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/dashboard" element={<DashboardPage />} />
           </Route>
 
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
 
-      <Footer />
+      {!isDashboardRoute && <Footer />}
     </CartProvider>
   )
 }
