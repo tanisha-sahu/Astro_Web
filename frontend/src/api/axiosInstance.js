@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:5000/api/v1', // Proxy is usually set in vite.config.js or full URL here
+    baseURL: 'https://astro-web-n2rr.onrender.com/api/v1', // Proxy is usually set in vite.config.js or full URL here
     headers: {
         'Content-Type': 'application/json',
     },
