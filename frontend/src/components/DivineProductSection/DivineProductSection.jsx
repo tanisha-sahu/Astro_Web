@@ -1,13 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import SectionHeader from '../SectionHeader/SectionHeader';
 import ProductCardCompact from '../ProductCardCompact/ProductCardCompact';
-import { PRODUCTS } from '../../data/productsData';
+import { fetchProducts } from '../../api/products';
 import './DivineProductSection.css';
 
 const DivineProductSection = () => {
-  // Pick some representative products
-  // Or in a real app, this might be filtered by a specific tag
-  const sacredProducts = PRODUCTS.slice(0, 4);
+  const [products, setProducts] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    async function load() {
+      try {
+        setLoading(true)
+        const data = await fetchProducts()
+        setProducts(data.slice(0, 4))
+      } catch (error) {
+        console.error('Failed to load divine products:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+    load()
+  }, [])
+
+  if (loading || products.length === 0) return null
 
   return (
     <section className="divine-products-section">
@@ -17,9 +33,9 @@ const DivineProductSection = () => {
       />
       
       <div className="divine-products-grid">
-        {sacredProducts.map((product, index) => (
+        {products.map((product, index) => (
           <ProductCardCompact 
-            key={product.id} 
+            key={product._id} 
             product={product} 
             index={index} 
           />

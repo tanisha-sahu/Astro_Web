@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import './CollectionCard.css'
 
 function svgCategoryPlaceholder(label, c1, c2) {
@@ -56,10 +57,9 @@ export default function CollectionCard({ item, index, isLoading = false }) {
   const src = image || svgCategoryPlaceholder(title, colors?.[0] || '#f77f00', colors?.[1] || '#fcbf49')
 
   return (
-    <a
+    <Link
       key={id}
-      id={id}
-      href={`#${id}`}
+      to={`/collection/${id}`}
       className="catCard"
       style={{ '--card-index': index }}
       role="listitem"
@@ -77,6 +77,6 @@ export default function CollectionCard({ item, index, isLoading = false }) {
           Explore <span aria-hidden="true">→</span>
         </span>
       </div>
-    </a>
+    </Link>
   )
 }

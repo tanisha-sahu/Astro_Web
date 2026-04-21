@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo, useRef } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { PRODUCTS } from '../data/productsData'
-import PRODUCT_CATEGORIES from '../data/productCategoriesData'
+import { fetchProducts } from '../api/products'
+import { fetchCollectionByIdOrSlug } from '../api/productCategories'
 import { useCart } from '../context/CartContext'
 import ProductCardCompact from '../components/ProductCardCompact/ProductCardCompact'
 import './CollectionPage.css'
@@ -59,6 +59,7 @@ export default function CollectionPage() {
   const { categoryId } = useParams()
   const { addToCart } = useCart()
   const [category, setCategory] = useState(null)
+  const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
 
   // Filter States
@@ -67,20 +68,32 @@ export default function CollectionPage() {
   const [sortBy, setSortBy] = useState('newest')
   
   useEffect(() => {
-    setLoading(true)
-    const timer = setTimeout(() => {
-      const catInfo = PRODUCT_CATEGORIES.find(c => c.id === categoryId)
-      setCategory(catInfo)
-      setLoading(false)
-      window.scrollTo(0, 0)
-    }, 400)
-    return () => clearTimeout(timer)
+    let isMounted = true;
+    async function loadData() {
+      setLoading(true)
+      try {
+        const catInfo = await fetchCollectionByIdOrSlug(categoryId)
+        if (!isMounted) return
+        setCategory(catInfo)
+        
+        // Fetch products for this collection
+        // We might need to pass the actual ID if categoryId is a slug
+        const colProducts = await fetchProducts({ collection: catInfo._id })
+        if (!isMounted) return
+        setProducts(colProducts)
+      } catch (error) {
+        console.error('Error loading collection data:', error)
+      } finally {
+        if (isMounted) setLoading(false)
+        window.scrollTo(0, 0)
+      }
+    }
+    loadData()
+    return () => { isMounted = false }
   }, [categoryId])
 
-/* Handled by ProductCardCompact */
-
   const filteredProducts = useMemo(() => {
-    let result = PRODUCTS.filter(p => p.categoryId === categoryId)
+    let result = [...products]
     if (searchQuery) {
       result = result.filter(p => p.name.toLowerCase().includes(searchQuery.toLowerCase()))
     }
@@ -93,7 +106,7 @@ export default function CollectionPage() {
     else if (sortBy === 'price-high') result.sort((a, b) => b.price - a.price)
     else if (sortBy === 'name-az') result.sort((a, b) => a.name.localeCompare(b.name))
     return result
-  }, [categoryId, searchQuery, priceRange, sortBy])
+  }, [products, searchQuery, priceRange, sortBy])
 
   const priceOptions = [
     { value: 'all', label: 'All Prices' },
@@ -123,7 +136,7 @@ export default function CollectionPage() {
     <div className="collection-page-simple">
       <div className="category-header-compact">
         <div className="divine-container">
-          <h1 className="category-title-minimal">{category.title}</h1>
+          <h1 className="category-title-minimal">{category.name}</h1>
         </div>
       </div>
 

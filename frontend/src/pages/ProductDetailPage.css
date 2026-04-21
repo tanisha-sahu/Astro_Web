@@ -85,6 +85,13 @@
   font-weight: 800;
   color: var(--primary);
 }
+
+.old-price {
+  font-size: 18px;
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+
 .tax-note { font-size: 12px; color: var(--text-muted); font-style: italic; }
 
 .brief-desc {

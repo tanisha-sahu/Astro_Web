@@ -21,7 +21,7 @@ export default function HomePage() {
                 'Represents Strength, Courage & Devotion',
                 'Premium Finish with Spiritual Essence'
               ],
-              cta: { text: 'Shop Now', link: '/products/hanuman-aabhushan' }
+              cta: { text: 'Shop Now', link: '/product/hanuman-aabhushan' }
             },
             {
               src: '/home-banner-images/kavach.png',
@@ -32,7 +32,7 @@ export default function HomePage() {
                 'Represents Spiritual Awakening',
                 'Exquisite Craftsmanship'
               ],
-              cta: { text: 'Explore Now', link: '/products/spiritual-kavach' }
+              cta: { text: 'Explore Now', link: '/product/spiritual-kavach' }
             },
             {
               src: '/home-banner-images/savitri-bandh.png',
@@ -43,7 +43,18 @@ export default function HomePage() {
                 'Promotes Harmony and Well-being',
                 'Timeless Spiritual Accessory'
               ],
-              cta: { text: 'Order Now', link: '/products/savitri-bandh' }
+              cta: { text: 'Order Now', link: '/product/savitri-bandh' }
+            },
+            {
+              src: '/home-banner-images/hanuman-mangal-mudrika.png',
+              title: 'Hanuman Mangal Mudrika',
+              subtitle: 'Sacred Ring of Protection & Fortune',
+              features: [
+                'Blessed for Wisdom and Courage',
+                'Ancient Design with Modern Elegance',
+                'Awaken Your Spiritual Energy'
+              ],
+              cta: { text: 'Shop Now', link: '/product/hanuman-mangal-mudrika' }
             },
           ]}
         />

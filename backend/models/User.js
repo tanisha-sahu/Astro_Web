@@ -29,15 +29,21 @@ const userSchema = new mongoose.Schema({
     },
     dob: {
         type: String // We can store as string for now to match the frontend date input
+    },
+    roles: {
+        type: [String],
+        enum: ['admin', 'astrologer', 'user'],
+        default: ['user']
     }
 }, {
     timestamps: true
 });
 
 // Encrypt password before saving
-userSchema.pre('save', async function(next) {
+// Using async function WITHOUT next() argument for Mongoose 9
+userSchema.pre('save', async function() {
     if (!this.isModified('password')) {
-        next();
+        return;
     }
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);

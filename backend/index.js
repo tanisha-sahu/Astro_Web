@@ -4,7 +4,8 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const connectDB = require('./config/db');
 const { notFound, errorHandler } = require('./middlewares/errorMiddleware');
-const { authRoutes } = require('./routes');
+const path = require('path');
+const { authRoutes, productRoutes, blogRoutes, collectionRoutes } = require('./routes/v1');
 
 dotenv.config();
 
@@ -22,6 +23,13 @@ app.use(cors({
 }));
 
 app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/products', productRoutes);
+app.use('/api/v1/blogs', blogRoutes);
+app.use('/api/v1/collections', collectionRoutes);
+app.use('/api/v1/upload', require('./routes/v1/uploadRoutes'));
+
+// Serve static files from public folder
+app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 
 app.get('/', (req, res) => {
     res.send('Astro Sanatani API is running...');

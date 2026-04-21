@@ -7,14 +7,15 @@ const authUser = async (req, res, next) => {
     try {
         const { email, password } = req.body;
         const user = await authService.loginUser(email, password);
-        authService.generateToken(res, user._id);
+        authService.generateToken(res, user._id, user.roles);
         
         res.status(200).json({
             _id: user._id,
             firstName: user.firstName,
             lastName: user.lastName,
             email: user.email,
-            mobile: user.mobile
+            mobile: user.mobile,
+            roles: user.roles
         });
     } catch (error) {
         res.status(401);
@@ -28,14 +29,15 @@ const authUser = async (req, res, next) => {
 const registerUser = async (req, res, next) => {
     try {
         const user = await authService.registerUser(req.body);
-        authService.generateToken(res, user._id);
+        authService.generateToken(res, user._id, user.roles);
 
         res.status(201).json({
             _id: user._id,
             firstName: user.firstName,
             lastName: user.lastName,
             email: user.email,
-            mobile: user.mobile
+            mobile: user.mobile,
+            roles: user.roles
         });
     } catch (error) {
         res.status(400);
@@ -64,7 +66,8 @@ const getUserProfile = async (req, res) => {
         lastName: req.user.lastName,
         email: req.user.email,
         mobile: req.user.mobile,
-        dob: req.user.dob
+        dob: req.user.dob,
+        roles: req.user.roles
     };
 
     res.status(200).json(user);

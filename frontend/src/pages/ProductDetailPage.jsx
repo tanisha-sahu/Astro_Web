@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
-import { PRODUCTS } from '../data/productsData'
+import { fetchProductByIdOrSlug, fetchProducts } from '../api/products'
 import { useCart } from '../context/CartContext'
 import './ProductDetailPage.css'
 
@@ -9,6 +9,7 @@ export default function ProductDetailPage() {
   const navigate = useNavigate()
   const { addToCart } = useCart()
   const [product, setProduct] = useState(null)
+  const [relatedProducts, setRelatedProducts] = useState([])
   const [loading, setLoading] = useState(true)
   const [quantity, setQuantity] = useState(1)
   const [showFeedback, setShowFeedback] = useState(false)
@@ -17,21 +18,31 @@ export default function ProductDetailPage() {
   const toggleWishlist = () => setIsWishlisted(!isWishlisted)
 
   useEffect(() => {
-    setLoading(true)
-    const foundProduct = PRODUCTS.find(p => p.id === parseInt(productId))
-    if (foundProduct) {
-      setProduct(foundProduct)
-      window.scrollTo(0, 0)
+    let isMounted = true
+    async function loadData() {
+      setLoading(true)
+      try {
+        const foundProduct = await fetchProductByIdOrSlug(productId)
+        if (!isMounted) return
+        setProduct(foundProduct)
+        
+        // Fetch related products (same collection)
+        if (foundProduct.categoryId) {
+          const related = await fetchProducts({ collection: foundProduct.categoryId })
+          if (!isMounted) return
+          setRelatedProducts(related.filter(p => p._id !== foundProduct._id).slice(0, 4))
+        }
+        
+        window.scrollTo(0, 0)
+      } catch (error) {
+        console.error('Error loading product:', error)
+      } finally {
+        if (isMounted) setLoading(false)
+      }
     }
-    setLoading(false)
+    loadData()
+    return () => { isMounted = false }
   }, [productId])
-
-  const relatedProducts = useMemo(() => {
-    if (!product) return []
-    return PRODUCTS
-      .filter(p => p.categoryId === product.categoryId && p.id !== product.id)
-      .slice(0, 4)
-  }, [product])
 
   const handleAddToCart = () => {
     for (let i = 0; i < quantity; i++) {
@@ -70,7 +81,10 @@ export default function ProductDetailPage() {
             <h1 className="detail-title">{product.name}</h1>
             
             <div className="detail-price-row">
-              <span className="main-price">₹{product.price.toLocaleString()}</span>
+              <span className="main-price">₹{product.price?.toLocaleString()}</span>
+              {product.oldPrice > product.price && (
+                <span className="old-price">₹{product.oldPrice?.toLocaleString()}</span>
+              )}
               <span className="tax-note">Inclusive of all taxes</span>
             </div>
             
@@ -158,10 +172,21 @@ export default function ProductDetailPage() {
               <h3 className="block-title">Specifications</h3>
               <table className="specs-table-compact">
                 <tbody>
-                  <tr><td>Material</td><td>Sacred A-Grade Quality</td></tr>
-                  <tr><td>Region</td><td>Himalayan Foothills</td></tr>
-                  <tr><td>Certification</td><td>Sanatani Trust Certified</td></tr>
-                  <tr><td>Vibration</td><td>Positive / High-Frequency</td></tr>
+                  {product.specifications && product.specifications.length > 0 ? (
+                    product.specifications.map((spec, i) => (
+                      <tr key={i}>
+                        <td>{spec.label}</td>
+                        <td>{spec.value}</td>
+                      </tr>
+                    ))
+                  ) : (
+                    <>
+                      <tr><td>Material</td><td>Sacred A-Grade Quality</td></tr>
+                      <tr><td>Region</td><td>Himalayan Foothills</td></tr>
+                      <tr><td>Certification</td><td>Sanatani Trust Certified</td></tr>
+                      <tr><td>Vibration</td><td>Positive / High-Frequency</td></tr>
+                    </>
+                  )}
                 </tbody>
               </table>
             </div>
@@ -169,9 +194,17 @@ export default function ProductDetailPage() {
             <div className="care-block">
               <h3 className="block-title">Care Instructions</h3>
               <ul className="care-list-mini">
-                <li>Handle with clean hands during prayer sessions.</li>
-                <li>Store in its original sacred velvet pouch.</li>
-                <li>Periodically cleanse with Ganga Jal spray.</li>
+                {product.careInstructions && product.careInstructions.length > 0 ? (
+                  product.careInstructions.map((instr, i) => (
+                    <li key={i}>{instr}</li>
+                  ))
+                ) : (
+                  <>
+                    <li>Handle with clean hands during prayer sessions.</li>
+                    <li>Store in its original sacred velvet pouch.</li>
+                    <li>Periodically cleanse with Ganga Jal spray.</li>
+                  </>
+                )}
               </ul>
             </div>
           </div>

@@ -53,23 +53,25 @@ export default function ProductCategories() {
               />
             ))
             : [...categories, ...categories].map((cat, index) => {
-              const src = cat.image
+              const src = cat.image || '/placeholder-category.png'
+              const id = cat.slug || cat._id
+              const title = cat.name
 
               return (
                 <Link
-                  key={`${cat.id}-${index}`}
-                  to={`/collection/${cat.id}`}
+                  key={`${cat._id}-${index}`}
+                  to={`/collection/${id}`}
                   className="catCard"
                   style={{ '--card-index': index }}
                   role="listitem"
-                  aria-label={cat.title}
+                  aria-label={title}
                 >
                   <div className="catCard__media">
                     <img className="catCard__img" src={src} alt="" loading="lazy" decoding="async" />
                   </div>
                   <div className="catCard__body">
                     <div className="catCard__content">
-                      <h3 className="catCard__title">{cat.title}</h3>
+                      <h3 className="catCard__title">{title}</h3>
                       <p className="catCard__desc">{cat.description}</p>
                     </div>
                     <span className="catCard__cta">

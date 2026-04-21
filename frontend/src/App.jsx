@@ -15,8 +15,13 @@ import SignupPage from './pages/SignupPage.jsx'
 import LoginPage from './pages/LoginPage.jsx'
 import ProfilePage from './pages/ProfilePage.jsx'
 import DashboardPage from './pages/DashboardPage.jsx'
+import DashboardCollectionsPage from './pages/DashboardCollectionsPage.jsx'
+import DashboardProductsPage from './pages/DashboardProductsPage.jsx'
+import DashboardProductEditorPage from './pages/DashboardProductEditorPage.jsx'
+import DashboardCollectionEditorPage from './pages/DashboardCollectionEditorPage.jsx'
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute.jsx'
 import useAuthStore from './store/authStore.js'
+import { ROLES } from './constants/roles'
 import { useEffect } from 'react'
 import './App.css'
 
@@ -48,10 +53,18 @@ function App() {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/login" element={<LoginPage />} />
           
-          {/* Protected Routes */}
+          {/* Protected Routes - Any logged in user */}
           <Route element={<ProtectedRoute />}>
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/dashboard" element={<DashboardPage />} />
+            <Route element={<ProtectedRoute allowedRoles={[ROLES.ADMIN]} />}>
+              <Route path="/dashboard/collections" element={<DashboardCollectionsPage />} />
+              <Route path="/dashboard/collections/add" element={<DashboardCollectionEditorPage />} />
+              <Route path="/dashboard/collections/edit/:id" element={<DashboardCollectionEditorPage />} />
+              <Route path="/dashboard/products" element={<DashboardProductsPage />} />
+              <Route path="/dashboard/products/add" element={<DashboardProductEditorPage />} />
+              <Route path="/dashboard/products/edit/:id" element={<DashboardProductEditorPage />} />
+            </Route>
           </Route>
 
           <Route path="*" element={<Navigate to="/" replace />} />

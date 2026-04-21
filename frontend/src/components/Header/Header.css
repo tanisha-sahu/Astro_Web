@@ -328,6 +328,18 @@
   }
 }
 
+.user-nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+@media (max-width: 768px) {
+  .user-nav {
+    gap: 8px;
+  }
+}
+
 .iconBtn {
   width: 44px;
   height: 44px;

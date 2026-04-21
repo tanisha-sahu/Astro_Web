@@ -59,8 +59,8 @@ const ProductGallery = () => {
                 <p className="product-subtitle">Your Personalized Roadmap to Sacred Wisdom.</p>
                 <div className="product-pricing">
                   <span className="price-label">Price :- </span>
-                  <span className="price-old">₹1,800/-</span>
-                  <span className="price-current">₹499/- Only</span>
+                  {product.oldPrice && <span className="price-old">₹{product.oldPrice.toLocaleString()}/-</span>}
+                  <span className="price-current">₹{product.price.toLocaleString()}/- Only</span>
                 </div>
                 <button className="buy-now-btn">
                   BUY NOW <span className="arrow-icon">→</span>

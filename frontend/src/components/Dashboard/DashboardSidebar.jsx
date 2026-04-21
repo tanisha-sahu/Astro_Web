@@ -10,18 +10,37 @@ import {
   Moon,
   ChevronLeft,
   LayoutDashboard,
-  Star
+  Star,
+  Package,
+  FileText,
+  LayoutGrid
 } from 'lucide-react';
+import useAuthStore from '../../store/authStore';
+import { ROLES } from '../../constants/roles';
 import './DashboardSidebar.css';
 
 const DashboardSidebar = ({ isOpen, toggleSidebar }) => {
+  const { user } = useAuthStore();
+  
   const menuItems = [
     { icon: LayoutDashboard, label: 'Dashboard', path: '/dashboard' },
     { icon: Calendar, label: 'Consultations', path: '/dashboard/consultations' },
     { icon: ShoppingBag, label: 'My Orders', path: '/dashboard/orders' },
     { icon: MessageSquare, label: 'Messages', path: '/dashboard/messages' },
-    { icon: User, label: 'My Profile', path: '/profile' },
   ];
+
+  // Add Admin specific items
+  if (user?.roles?.includes(ROLES.ADMIN)) {
+    menuItems.push({ icon: Package, label: 'Products', path: '/dashboard/products' });
+    menuItems.push({ icon: LayoutGrid, label: 'Collections', path: '/dashboard/collections' });
+  }
+
+  // Add Astrologer specific items
+  if (user?.roles?.includes(ROLES.ASTROLOGER)) {
+    menuItems.push({ icon: FileText, label: 'Blogs', path: '/dashboard/blogs' });
+  }
+
+  menuItems.push({ icon: User, label: 'My Profile', path: '/profile' });
 
   const bottomItems = [
     { icon: Settings, label: 'Settings', path: '/dashboard/settings' },

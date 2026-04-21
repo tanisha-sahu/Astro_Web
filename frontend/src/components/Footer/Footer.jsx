@@ -1,13 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { fetchProductCategories } from '../../api/productCategories'
 import './Footer.css'
-
-const SHOP_LINKS = [
-  { label: 'All products', href: '#shop' },
-  { label: 'Gemstones & rudraksha', href: '#gemstones' },
-  { label: 'Yantras & idols', href: '#yantras' },
-  { label: 'Books & calendars', href: '#books' },
-  { label: 'Puja essentials', href: '#puja' },
-]
 
 const ASTRO_LINKS = [
   { label: 'Astro consultation', href: '#astro-consultation' },
@@ -33,8 +26,27 @@ const COMPANY_LINKS = [
 ]
 
 export default function Footer() {
+  const [shopLinks, setShopLinks] = useState([
+    { label: 'All products', href: '/#shop' }
+  ])
   const year = new Date().getFullYear()
   const [showSuccess, setShowSuccess] = useState(false);
+
+  useEffect(() => {
+    async function load() {
+      try {
+        const collections = await fetchProductCategories()
+        const dynamicLinks = collections.map(c => ({
+          label: c.name,
+          href: `/collection/${c.slug || c._id}`
+        }))
+        setShopLinks([{ label: 'All products', href: '/#shop' }, ...dynamicLinks])
+      } catch (err) {
+        console.error('Failed to load shop links for footer:', err)
+      }
+    }
+    load()
+  }, [])
 
   const handleSubscribe = (e) => {
     e.preventDefault();
@@ -90,7 +102,7 @@ export default function Footer() {
           <div className="foundation-link-col">
             <h3 className="foundation-link-heading">Shop</h3>
             <ul className="foundation-list">
-              {SHOP_LINKS.map(link => <li key={link.label}><a href={link.href}>{link.label}</a></li>)}
+              {shopLinks.map(link => <li key={link.label}><a href={link.href}>{link.label}</a></li>)}
             </ul>
           </div>
 

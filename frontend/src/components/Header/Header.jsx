@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import useAuthStore from '../../store/authStore'
+import { ROLES } from '../../constants/roles'
+import { fetchProductCategories } from '../../api/productCategories'
 import './Header.css'
 
 const NAV_LINKS = [
@@ -11,22 +13,40 @@ const NAV_LINKS = [
   { label: 'Contact', to: '/contact' },
 ]
 
-const TOP_NAV_LINKS = [
+const STATIC_TOP_LINKS = [
   { label: 'Generate Kundli', to: '/kundli' },
   { label: 'Kundli Milan', to: '/milan' },
   { label: 'Consultation', to: '/astro-consultation' },
   { label: 'Book Pooja', to: '/pooja' },
   { label: 'Narayan Kavach', to: '/kavach' },
-  { label: 'Gemstones', to: '/gemstones' },
-  { label: 'Rudraksha', to: '/rudraksha' },
-  { label: 'Yantras', to: '/yantras' },
 ]
 
 export default function Header() {
-  const { isAuthenticated, logout } = useAuthStore()
+  const { isAuthenticated, logout, user } = useAuthStore()
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const [collections, setCollections] = useState([])
   const navId = useMemo(() => 'primary-navigation', [])
+
+  useEffect(() => {
+    async function loadCollections() {
+      try {
+        const data = await fetchProductCategories()
+        setCollections(data)
+      } catch (err) {
+        console.error('Failed to load collections for header:', err)
+      }
+    }
+    loadCollections()
+  }, [])
+
+  const topNavLinks = useMemo(() => {
+    const dynamicLinks = collections.map(c => ({
+      label: c.name,
+      to: `/collection/${c.slug || c._id}`
+    }))
+    return [...STATIC_TOP_LINKS, ...dynamicLinks]
+  }, [collections])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -66,7 +86,7 @@ export default function Header() {
         <div className="topHeader">
           <div className="topHeader__marquee">
             <div className="topHeader__track">
-              {TOP_NAV_LINKS.map((link, idx) => (
+              {topNavLinks.map((link, idx) => (
                 <div key={`a-wrap-${idx}`} className="topHeader__item">
                   <Link to={link.to} className="topHeader__link">
                     {link.label}
@@ -75,7 +95,7 @@ export default function Header() {
                 </div>
               ))}
               {/* Duplicate for infinite effect */}
-              {TOP_NAV_LINKS.map((link, idx) => (
+              {topNavLinks.map((link, idx) => (
                 <div key={`b-wrap-${idx}`} className="topHeader__item">
                   <Link to={link.to} className="topHeader__link">
                     {link.label}
@@ -147,6 +167,13 @@ export default function Header() {
                   />
                 </svg>
               </Link>
+              {isAuthenticated && (
+                <Link className="iconBtn" to="/dashboard" title="Dashboard" aria-label="Dashboard">
+                  <svg viewBox="0 0 24 24" role="presentation" aria-hidden="true">
+                    <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z" fill="currentColor" />
+                  </svg>
+                </Link>
+              )}
             </div>
           ) : (
             <Link className="loginBtn" to="/login">

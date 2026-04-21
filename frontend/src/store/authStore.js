@@ -48,6 +48,12 @@ const useAuthStore = create((set) => ({
         }
     },
 
+    hasRole: (allowedRoles) => {
+        const user = useAuthStore.getState().user;
+        if (!user || !user.roles) return false;
+        return user.roles.some(role => allowedRoles.includes(role));
+    },
+
     clearError: () => set({ error: null }),
 }));
 
