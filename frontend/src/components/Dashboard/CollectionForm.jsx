@@ -10,7 +10,7 @@ import {
     Eye, 
     EyeOff 
 } from 'lucide-react';
-import axios from 'axios';
+import axiosInstance, { IMAGE_BASE_URL } from '../../api/axiosInstance';
 import './CollectionForm.css';
 
 const CollectionForm = ({ initialData = null, isEditMode = false, onSave, onCancel }) => {
@@ -26,7 +26,6 @@ const CollectionForm = ({ initialData = null, isEditMode = false, onSave, onCanc
     const [error, setError] = useState(null);
     const fileInputRef = useRef(null);
 
-    const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1';
 
     useEffect(() => {
         if (initialData) {
@@ -37,11 +36,10 @@ const CollectionForm = ({ initialData = null, isEditMode = false, onSave, onCanc
                 isActive: initialData.isActive !== undefined ? initialData.isActive : true
             });
             if (initialData.image) {
-                const IMAGE_BASE_URL = API_BASE_URL.replace('/api/v1', '');
                 setPreviewUrl(initialData.image.startsWith('http') ? initialData.image : `${IMAGE_BASE_URL}${initialData.image}`);
             }
         }
-    }, [initialData, API_BASE_URL]);
+    }, [initialData]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -80,9 +78,8 @@ const CollectionForm = ({ initialData = null, isEditMode = false, onSave, onCanc
                 const uploadFormData = new FormData();
                 uploadFormData.append('image', selectedFile);
 
-                const uploadRes = await axios.post(`${API_BASE_URL}/upload`, uploadFormData, {
-                    headers: { 'Content-Type': 'multipart/form-data' },
-                    withCredentials: true
+                const uploadRes = await axiosInstance.post('/upload', uploadFormData, {
+                    headers: { 'Content-Type': 'multipart/form-data' }
                 });
                 imageUrl = uploadRes.data.url;
             }
@@ -91,13 +88,9 @@ const CollectionForm = ({ initialData = null, isEditMode = false, onSave, onCanc
             const dataToSubmit = { ...formData, image: imageUrl };
             
             if (isEditMode && initialData?._id) {
-                await axios.put(`${API_BASE_URL}/collections/${initialData._id}`, dataToSubmit, {
-                    withCredentials: true
-                });
+                await axiosInstance.put(`/collections/${initialData._id}`, dataToSubmit);
             } else {
-                await axios.post(`${API_BASE_URL}/collections`, dataToSubmit, {
-                    withCredentials: true
-                });
+                await axiosInstance.post('/collections', dataToSubmit);
             }
 
             onSave();

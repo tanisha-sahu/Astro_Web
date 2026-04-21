@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import DashboardLayout from '../components/Dashboard/DashboardLayout';
 import { Plus, Trash2, Edit2, Package, AlertCircle, CheckCircle, Tag, LayoutGrid } from 'lucide-react';
-import axios from 'axios';
+import axiosInstance, { IMAGE_BASE_URL } from '../api/axiosInstance';
 import './DashboardProductsPage.css';
 
 const DashboardProductsPage = () => {
@@ -13,8 +13,6 @@ const DashboardProductsPage = () => {
     const [viewMode, setViewMode] = useState(localStorage.getItem('productsViewMode') || 'grid');
     const navigate = useNavigate();
 
-    const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1';
-    const IMAGE_BASE_URL = API_BASE_URL.replace('/api/v1', '');
 
     const toggleViewMode = (mode) => {
         setViewMode(mode);
@@ -24,7 +22,7 @@ const DashboardProductsPage = () => {
     const fetchData = async () => {
         try {
             setLoading(true);
-            const productsRes = await axios.get(`${API_BASE_URL}/products?admin=true`, { withCredentials: true });
+            const productsRes = await axiosInstance.get('/products?admin=true');
             setProducts(productsRes.data);
             setLoading(false);
         } catch (err) {
@@ -40,9 +38,7 @@ const DashboardProductsPage = () => {
     const handleDelete = async (id) => {
         if (!window.confirm('Are you sure you want to delete this product?')) return;
         try {
-            await axios.delete(`${API_BASE_URL}/products/${id}`, {
-                withCredentials: true
-            });
+            await axiosInstance.delete(`/products/${id}`);
             setSuccess('Product deleted');
             fetchData();
             setTimeout(() => setSuccess(null), 3000);

@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import DashboardLayout from '../components/Dashboard/DashboardLayout';
 import CollectionForm from '../components/Dashboard/CollectionForm';
 import { LayoutGrid, ChevronLeft } from 'lucide-react';
-import axios from 'axios';
+import axiosInstance from '../api/axiosInstance';
 
 const DashboardCollectionEditorPage = () => {
     const { id } = useParams();
@@ -12,15 +12,12 @@ const DashboardCollectionEditorPage = () => {
     const [initialData, setInitialData] = useState(null);
     const [loading, setLoading] = useState(isEditMode);
 
-    const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1';
 
     useEffect(() => {
         if (isEditMode) {
             const fetchCollection = async () => {
                 try {
-                    const res = await axios.get(`${API_BASE_URL}/collections/${id}`, {
-                        withCredentials: true
-                    });
+                    const res = await axiosInstance.get(`/collections/${id}`);
                     setInitialData(res.data);
                 } catch (err) {
                     console.error('Failed to fetch collection:', err);
@@ -30,7 +27,7 @@ const DashboardCollectionEditorPage = () => {
             };
             fetchCollection();
         }
-    }, [id, isEditMode, API_BASE_URL]);
+    }, [id, isEditMode]);
 
     return (
         <DashboardLayout>

@@ -6,6 +6,7 @@ import {
     ChevronDown, Eye, ToggleLeft, ToggleRight,
     Loader2, Trash2, Layers
 } from 'lucide-react';
+import { IMAGE_BASE_URL } from '../../api/axiosInstance';
 import './ProductForm.css';
 
 const ProductForm = ({ 
@@ -34,8 +35,6 @@ const ProductForm = ({
     const [errors, setErrors] = useState({});
     const fileInputRef = useRef(null);
 
-    const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1';
-    const IMAGE_BASE_URL = API_BASE_URL.replace('/api/v1', '');
 
     useEffect(() => {
         if (initialData && Object.keys(initialData).length > 0) {
@@ -60,7 +59,7 @@ const ProductForm = ({
                 setPreviews(imgUrls);
             }
         }
-    }, [initialData, IMAGE_BASE_URL]);
+    }, [initialData]);
 
     const handleInputChange = (e) => {
         const { name, value, type, checked } = e.target;

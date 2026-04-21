@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DashboardLayout from '../components/Dashboard/DashboardLayout';
 import { Plus, Trash2, Edit2, LayoutGrid, AlertCircle, CheckCircle, Package, MoreVertical } from 'lucide-react';
-import axios from 'axios';
+import axiosInstance, { IMAGE_BASE_URL } from '../api/axiosInstance';
 import './DashboardCollectionsPage.css';
 
 const DashboardCollectionsPage = () => {
@@ -13,8 +13,6 @@ const DashboardCollectionsPage = () => {
     const [viewMode, setViewMode] = useState(localStorage.getItem('collectionsViewMode') || 'grid');
     const navigate = useNavigate();
 
-    const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1';
-    const IMAGE_BASE_URL = API_BASE_URL.replace('/api/v1', '');
 
     const toggleViewMode = (mode) => {
         setViewMode(mode);
@@ -24,9 +22,7 @@ const DashboardCollectionsPage = () => {
     const fetchCollections = async () => {
         try {
             setLoading(true);
-            const response = await axios.get(`${API_BASE_URL}/collections?admin=true`, {
-                withCredentials: true
-            });
+            const response = await axiosInstance.get('/collections?admin=true');
             setCollections(response.data);
             setLoading(false);
         } catch (err) {
@@ -42,9 +38,7 @@ const DashboardCollectionsPage = () => {
     const handleDelete = async (id) => {
         if (!window.confirm('Are you sure you want to delete this collection?')) return;
         try {
-            await axios.delete(`${API_BASE_URL}/collections/${id}`, {
-                withCredentials: true
-            });
+            await axiosInstance.delete(`/collections/${id}`);
             setSuccess('Collection deleted successfully');
             fetchCollections();
             setTimeout(() => setSuccess(null), 3000);

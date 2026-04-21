@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import DashboardLayout from '../components/Dashboard/DashboardLayout';
 import ProductForm from '../components/Dashboard/ProductForm';
 import { ChevronLeft, Package, Sparkles } from 'lucide-react';
-import axios from 'axios';
+import axiosInstance from '../api/axiosInstance';
 
 const DashboardProductEditorPage = () => {
     const { id } = useParams();
@@ -16,17 +16,16 @@ const DashboardProductEditorPage = () => {
     const [error, setError] = useState(null);
     const [isProcessing, setIsProcessing] = useState(false);
 
-    const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1';
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 // Always fetch collections
-                const collectionsRes = await axios.get(`${API_BASE_URL}/collections`, { withCredentials: true });
+                const collectionsRes = await axiosInstance.get('/collections');
                 setCollections(collectionsRes.data);
 
                 if (isEditMode) {
-                    const productRes = await axios.get(`${API_BASE_URL}/products/${id}`, { withCredentials: true });
+                    const productRes = await axiosInstance.get(`/products/${id}`);
                     setProduct(productRes.data);
                 }
                 setLoading(false);
@@ -38,7 +37,7 @@ const DashboardProductEditorPage = () => {
         };
 
         fetchData();
-    }, [id, isEditMode, API_BASE_URL]);
+    }, [id, isEditMode]);
 
     const handleFormSubmit = async (formData, selectedFiles) => {
         setIsProcessing(true);
@@ -52,9 +51,8 @@ const DashboardProductEditorPage = () => {
                 const uploadFormData = new FormData();
                 uploadFormData.append('image', selectedFiles[0]);
 
-                const uploadRes = await axios.post(`${API_BASE_URL}/upload`, uploadFormData, {
-                    headers: { 'Content-Type': 'multipart/form-data' },
-                    withCredentials: true
+                const uploadRes = await axiosInstance.post('/upload', uploadFormData, {
+                    headers: { 'Content-Type': 'multipart/form-data' }
                 });
                 imageUrl = uploadRes.data.url;
             }
@@ -71,13 +69,9 @@ const DashboardProductEditorPage = () => {
             };
 
             if (isEditMode) {
-                await axios.put(`${API_BASE_URL}/products/${id}`, dataToSubmit, {
-                    withCredentials: true
-                });
+                await axiosInstance.put(`/products/${id}`, dataToSubmit);
             } else {
-                await axios.post(`${API_BASE_URL}/products`, dataToSubmit, {
-                    withCredentials: true
-                });
+                await axiosInstance.post('/products', dataToSubmit);
             }
 
             navigate('/dashboard/products');
