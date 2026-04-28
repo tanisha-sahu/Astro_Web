@@ -5,12 +5,18 @@ const collectionService = require('../services/collectionService');
 // @access  Public
 const getCollections = async (req, res, next) => {
     try {
-        const { admin } = req.query;
+        const { admin, search, status, page, limit, sortField, sortOrder } = req.query;
         const filters = {
-            adminMode: admin === 'true'
+            adminMode: admin === 'true',
+            search,
+            status,
+            page,
+            limit,
+            sortField,
+            sortOrder
         };
-        const collections = await collectionService.getAllCollections(filters);
-        return res.status(200).json(collections);
+        const result = await collectionService.getAllCollections(filters);
+        return res.status(200).json(result);
     } catch (error) {
         return next(error);
     }
@@ -64,10 +70,23 @@ const deleteCollection = async (req, res, next) => {
     }
 };
 
+// @desc    Toggle collection status
+// @route   PATCH /api/v1/collections/:id/toggle-status
+// @access  Private/Admin
+const toggleCollectionStatus = async (req, res, next) => {
+    try {
+        const updatedCollection = await collectionService.toggleCollectionStatus(req.params.id);
+        return res.status(200).json(updatedCollection);
+    } catch (error) {
+        return next(error);
+    }
+};
+
 module.exports = {
     getCollections,
     getCollection,
     createCollection,
     updateCollection,
-    deleteCollection
+    deleteCollection,
+    toggleCollectionStatus
 };

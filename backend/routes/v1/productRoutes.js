@@ -26,4 +26,9 @@ router.put('/:id', protect, authorizeRoles(ROLES.ADMIN), productController.updat
 // @access  Private/Admin
 router.delete('/:id', protect, authorizeRoles(ROLES.ADMIN), productController.deleteProduct);
 
+// @desc    Toggle a product status
+// @route   PATCH /api/v1/products/:id/toggle-status
+// @access  Private/Admin
+router.patch('/:id/toggle-status', protect, authorizeRoles(ROLES.ADMIN), productController.toggleProductStatus);
+
 module.exports = router;

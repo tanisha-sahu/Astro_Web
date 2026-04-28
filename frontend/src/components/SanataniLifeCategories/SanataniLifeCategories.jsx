@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { fetchSanataniLifeCategories } from '../../api/sanataniLifeCategories.js'
+import { categoryService } from '../../services'
+
 import './SanataniLifeCategories.css'
 import SectionHeader from '../SectionHeader/SectionHeader.jsx'
 import CollectionCard from '../CollectionCard/CollectionCard.jsx'
@@ -14,7 +15,7 @@ export default function SanataniLifeCategories() {
     async function load() {
       try {
         setIsLoading(true)
-        const data = await fetchSanataniLifeCategories()
+        const data = await categoryService.fetchSanataniLifeCategories()
         if (!active) return
         setCategories(Array.isArray(data) ? data : [])
       } finally {
@@ -29,7 +30,7 @@ export default function SanataniLifeCategories() {
   }, [])
 
   return (
-    <section className="pageSection sanataniCategoriesSection">
+    <section id="collections-section" className="pageSection sanataniCategoriesSection">
       {/* Structural wrap similar to home page for consistency */}
       <div className="cat-header-wrap">
         <SectionHeader

@@ -3,7 +3,7 @@ import { MessageCircle } from 'lucide-react';
 import './WhatsAppButton.css';
 
 const WhatsAppButton = () => {
-  const phoneNumber = '919560370417'; // Astro Sanatani Contact
+  const phoneNumber = '919958246894'; // Astro Sanatani Contact
   const message = 'Jai Shree Ram! I would like to know more about your divine services.';
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
@@ -16,6 +16,7 @@ const WhatsAppButton = () => {
       aria-label="Chat with us on WhatsApp"
     >
       <div className="whatsapp-pulse"></div>
+      <div className="whatsapp-status-dot"></div>
       <svg 
         xmlns="http://www.w3.org/2000/svg" 
         width="32" 

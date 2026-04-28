@@ -11,9 +11,7 @@ export default function SanataniLifePage() {
       </section>
 
       <SanataniLifeCategories />
-      <div className="page">
-        <DivineProductSection />
-      </div>
+      <DivineProductSection />
       <ProductGallery />
     </>
   )

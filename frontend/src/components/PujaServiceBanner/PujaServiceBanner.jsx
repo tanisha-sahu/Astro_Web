@@ -13,7 +13,17 @@ const PujaServiceBanner = () => {
           <p className="puja-banner__mantra">॥ धर्मो रक्षति रक्षितः ॥</p>
           
           <div className="puja-banner__actions">
-            <button className="puja-banner__cta">Explore Collections</button>
+            <button 
+              className="puja-banner__cta"
+              onClick={() => {
+                const element = document.getElementById('collections-section');
+                if (element) {
+                  element.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+            >
+              Explore Collections
+            </button>
             <p className="puja-banner__trust">
               Authentic Vedic Treasures | Timeless Spiritual Essence
             </p>

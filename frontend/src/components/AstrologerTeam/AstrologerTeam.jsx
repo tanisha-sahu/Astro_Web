@@ -1,49 +1,37 @@
-import './AstrologerTeam.css'
-
-const TEAM = [
-  {
-    id: 1,
-    name: 'Acharya V. Shastri',
-    specialty: 'Vedic Astrology',
-    experience: '15+ Years',
-    rating: 4.9,
-    reviews: 1240,
-    status: 'online',
-    img: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&q=80&w=300&h=300',
-  },
-  {
-    id: 2,
-    name: 'Dr. Pallavi Sharma',
-    specialty: 'Numerology & Vastu',
-    experience: '12+ Years',
-    rating: 4.8,
-    reviews: 890,
-    status: 'online',
-    img: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=300&h=300',
-  },
-  {
-    id: 3,
-    name: 'Guru Ma Amrita',
-    specialty: 'Tarot & Palmistry',
-    experience: '20+ Years',
-    rating: 5.0,
-    reviews: 2150,
-    status: 'busy',
-    img: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=300&h=300',
-  },
-  {
-    id: 4,
-    name: 'Pt. Rameshwar Lal',
-    specialty: 'KP Astrology',
-    experience: '18+ Years',
-    rating: 4.9,
-    reviews: 1120,
-    status: 'online',
-    img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=300&h=300',
-  },
-]
+import React, { useState, useEffect } from 'react';
+import './AstrologerTeam.css';
+import { userService } from '../../services';
+import { IMAGE_BASE_URL } from '../../api/axiosInstance';
 
 export default function AstrologerTeam() {
+  const [astrologers, setAstrologers] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadAstrologers = async () => {
+      try {
+        const data = await userService.fetchPublicAstrologers();
+        setAstrologers(data);
+      } catch (error) {
+        console.error('Failed to load astrologers:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadAstrologers();
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="teamSection">
+        <div className="teamContainer">
+          <div className="teamHeader">
+            <h2 className="teamTitle">Loading Spiritual Guides...</h2>
+          </div>
+        </div>
+      </section>
+    );
+  }
   return (
     <section className="teamSection">
       {/* Celestial Background Ornaments */}
@@ -72,11 +60,16 @@ export default function AstrologerTeam() {
         </div>
 
         <div className="teamGrid">
-          {TEAM.map((astro) => (
-            <article key={astro.id} className="teamCard">
+          {astrologers.map((astro, index) => (
+            <article key={astro._id} className="teamCard" style={{ '--i': index }}>
               <div className="teamImageWrap">
                 <div className="teamImageInner">
-                  <img src={astro.img} alt={astro.name} className="teamImage" loading="lazy" decoding="async" />
+                  <img 
+                    src={astro.image ? (astro.image.startsWith('http') ? astro.image : `${IMAGE_BASE_URL}${astro.image}`) : 'https://via.placeholder.com/300'} 
+                    alt={`${astro.firstName} ${astro.lastName}`} 
+                    className="teamImage" 
+                    loading="lazy" 
+                  />
                 </div>
 
                 <div className="teamVerifiedBadge">
@@ -87,14 +80,14 @@ export default function AstrologerTeam() {
               <div className="teamInfo">
                 <div className="teamRating">
                   <span className="ratingStars">{"✦".repeat(5)}</span>
-                  <span className="ratingCount">({astro.reviews})</span>
+                  <span className="ratingCount">({Math.floor(Math.random() * 1000) + 500} Reviews)</span>
                 </div>
-                <h3 className="teamName">{astro.name}</h3>
-                <p className="teamSpecialty">{astro.specialty}</p>
+                <h3 className="teamName">{astro.firstName} {astro.lastName}</h3>
+                <p className="teamSpecialty">{astro.specialty || 'Vedic Astrology'}</p>
                 <div className="teamStats">
-                  <span className="teamExp">{astro.experience} Exp.</span>
+                  <span className="teamExp">{astro.experience || '10+ Years'} Exp.</span>
                 </div>
-                <button type="button" className="teamBtn">
+                <button type="button" className="teamBtn" onClick={() => window.open(`https://wa.me/91${astro.mobile?.replace(/\D/g,'')}`, '_blank')}>
                   <span>Consult Now</span>
                   <span className="btnSparkle">✦</span>
                 </button>

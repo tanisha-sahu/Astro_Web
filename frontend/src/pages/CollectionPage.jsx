@@ -1,9 +1,10 @@
 import { useState, useEffect, useMemo, useRef } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { fetchProducts } from '../api/products'
-import { fetchCollectionByIdOrSlug } from '../api/productCategories'
+import { productService, categoryService } from '../services'
+
 import { useCart } from '../context/CartContext'
 import ProductCardCompact from '../components/ProductCardCompact/ProductCardCompact'
+import CollectionSkeleton from '../components/CollectionSkeleton/CollectionSkeleton'
 import './CollectionPage.css'
 
 // Custom Dropdown Component
@@ -71,21 +72,25 @@ export default function CollectionPage() {
     let isMounted = true;
     async function loadData() {
       setLoading(true)
+      setCategory(null)
+      setProducts([])
+
+      // Artificial delay for visual consistency
+      await new Promise(resolve => setTimeout(resolve, 600))
+
       try {
-        const catInfo = await fetchCollectionByIdOrSlug(categoryId)
+        const catInfo = await categoryService.fetchCollectionByIdOrSlug(categoryId)
         if (!isMounted) return
         setCategory(catInfo)
         
         // Fetch products for this collection
-        // We might need to pass the actual ID if categoryId is a slug
-        const colProducts = await fetchProducts({ collection: catInfo._id })
+        const colProducts = await productService.fetchProducts({ collection: catInfo._id })
         if (!isMounted) return
         setProducts(colProducts)
       } catch (error) {
         console.error('Error loading collection data:', error)
       } finally {
         if (isMounted) setLoading(false)
-        window.scrollTo(0, 0)
       }
     }
     loadData()
@@ -122,13 +127,7 @@ export default function CollectionPage() {
     { value: 'name-az', label: 'Name: A to Z' }
   ]
 
-  if (loading) {
-    return (
-      <div className="collection-loading-minimal">
-        <div className="minimal-spinner"></div>
-      </div>
-    )
-  }
+  if (loading) return <CollectionSkeleton />
 
   if (!category) return null
 
@@ -177,15 +176,29 @@ export default function CollectionPage() {
 
       <main className="category-listing-compact">
         <div className="divine-container">
-          <div className="ecommerce-product-grid">
-            {filteredProducts.map((product, index) => (
-              <ProductCardCompact 
-                key={product.id} 
-                product={product} 
-                index={index} 
-              />
-            ))}
-          </div>
+          {filteredProducts.length > 0 ? (
+            <div className="ecommerce-product-grid">
+              {filteredProducts.map((product, index) => (
+                <ProductCardCompact 
+                  key={product.id} 
+                  product={product} 
+                  index={index} 
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="empty-collection-centered-wrap">
+              <div className="empty-collection-state">
+                <div className="empty-icon">🪷</div>
+                <h3>Divine Treasures Awaited</h3>
+                <p>
+                  Our sacred inventory for this collection is currently being energized. 
+                  Please explore our other collections or check back soon for new arrivals.
+                </p>
+                <Link to="/all-products" className="btn-browse-all">Explore All Products</Link>
+              </div>
+            </div>
+          )}
         </div>
       </main>
     </div>

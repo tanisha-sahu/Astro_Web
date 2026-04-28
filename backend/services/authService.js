@@ -45,8 +45,53 @@ const loginUser = async (email, password) => {
     }
 };
 
+const updateUserProfile = async (userId, updateData) => {
+    const user = await User.findById(userId);
+
+    if (user) {
+        user.firstName = updateData.firstName || user.firstName;
+        user.lastName = updateData.lastName || user.lastName;
+        user.mobile = updateData.mobile || user.mobile;
+        user.dob = updateData.dob || user.dob;
+        user.image = updateData.image !== undefined ? updateData.image : user.image;
+
+        if (updateData.password) {
+            user.password = updateData.password;
+        }
+
+        const updatedUser = await user.save();
+        return updatedUser;
+    } else {
+        throw new Error('User not found');
+    }
+};
+
+const deleteUser = async (userId) => {
+    const user = await User.findById(userId);
+
+    if (user) {
+        await user.deleteOne();
+    } else {
+        throw new Error('User not found');
+    }
+};
+
+const changePassword = async (userId, currentPassword, newPassword) => {
+    const user = await User.findById(userId).select('+password');
+
+    if (user && (await user.matchPassword(currentPassword))) {
+        user.password = newPassword;
+        await user.save();
+    } else {
+        throw new Error('Invalid current password');
+    }
+};
+
 module.exports = {
     generateToken,
     registerUser,
-    loginUser
+    loginUser,
+    updateUserProfile,
+    deleteUser,
+    changePassword
 };

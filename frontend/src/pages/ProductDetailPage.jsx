@@ -1,39 +1,62 @@
 import { useState, useEffect, useMemo } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
-import { fetchProductByIdOrSlug, fetchProducts } from '../api/products'
+import { productService } from '../services'
+
 import { useCart } from '../context/CartContext'
+import { useWishlist } from '../context/WishlistContext'
+import useAuthStore from '../store/authStore'
+import ProductDetailSkeleton from '../components/ProductDetailSkeleton/ProductDetailSkeleton'
+import ProductCardCompact from '../components/ProductCardCompact/ProductCardCompact'
 import './ProductDetailPage.css'
 
 export default function ProductDetailPage() {
   const { productId } = useParams()
   const navigate = useNavigate()
-  const { addToCart } = useCart()
+  const { isAuthenticated } = useAuthStore()
+  const { addToCart, items } = useCart()
+  const { toggleWishlist, isFavorite } = useWishlist()
   const [product, setProduct] = useState(null)
   const [relatedProducts, setRelatedProducts] = useState([])
   const [loading, setLoading] = useState(true)
   const [quantity, setQuantity] = useState(1)
   const [showFeedback, setShowFeedback] = useState(false)
-  const [isWishlisted, setIsWishlisted] = useState(false)
 
-  const toggleWishlist = () => setIsWishlisted(!isWishlisted)
+  const favorite = isFavorite(product?._id || product?.id);
+
+  const handleFavorite = () => {
+    if (!isAuthenticated) {
+      navigate('/login')
+      return
+    }
+    if (product) {
+      toggleWishlist(product._id || product.id);
+    }
+  }
 
   useEffect(() => {
     let isMounted = true
     async function loadData() {
       setLoading(true)
+      setProduct(null)
+      setRelatedProducts([])
+      
+      // Scroll to top when product changes
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // Artificial delay to ensure skeleton is visible
+      await new Promise(resolve => setTimeout(resolve, 600))
+
       try {
-        const foundProduct = await fetchProductByIdOrSlug(productId)
+        const foundProduct = await productService.fetchProductByIdOrSlug(productId)
         if (!isMounted) return
         setProduct(foundProduct)
         
         // Fetch related products (same collection)
         if (foundProduct.categoryId) {
-          const related = await fetchProducts({ collection: foundProduct.categoryId })
+          const related = await productService.fetchProducts({ collection: foundProduct.categoryId })
           if (!isMounted) return
           setRelatedProducts(related.filter(p => p._id !== foundProduct._id).slice(0, 4))
         }
-        
-        window.scrollTo(0, 0)
       } catch (error) {
         console.error('Error loading product:', error)
       } finally {
@@ -44,16 +67,59 @@ export default function ProductDetailPage() {
     return () => { isMounted = false }
   }, [productId])
 
-  const handleAddToCart = () => {
-    for (let i = 0; i < quantity; i++) {
-      addToCart(product)
+  const isInCart = useMemo(() => {
+    if (!product || !items) return false
+    return items.some(item => item.id === product._id)
+  }, [product, items])
+
+  const handleAddToCart = async () => {
+    if (!isAuthenticated) {
+      navigate('/login')
+      return
     }
-    setShowFeedback(true)
-    setTimeout(() => setShowFeedback(false), 3000)
+    const success = await addToCart(product, quantity)
+    if (success) {
+      setShowFeedback(true)
+    }
   }
 
-  if (loading) return <div className="product-detail-loader"><div className="spinner-gold"></div></div>
-  if (!product) return <div className="p-40 text-center">Product not found. <Link to="/" className="text-gold">Return Home</Link></div>
+  useEffect(() => {
+    if (showFeedback) {
+      const timer = setTimeout(() => setShowFeedback(false), 3000)
+      return () => clearTimeout(timer)
+    }
+  }, [showFeedback])
+
+  if (loading) return <ProductDetailSkeleton />
+  
+  if (!product) return (
+    <div className="product-not-found-container">
+      <div className="divine-container">
+        <div className="not-found-content">
+          <div className="not-found-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="not-found-svg">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <div className="icon-glow"></div>
+          </div>
+          <h1 className="not-found-title">Sacred Item Not Found</h1>
+          <p className="not-found-text">
+            The item you are seeking may have been moved or is currently out of our celestial inventory. 
+            Continue your spiritual journey by exploring our other sacred collections.
+          </p>
+          <div className="not-found-actions">
+            <button onClick={() => navigate('/')} className="btn-return-premium">
+              Return Home ✦
+            </button>
+            <button onClick={() => navigate('/all-products')} className="btn-explore-secondary">
+              Browse All Products
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
 
   return (
     <div className="product-detail-page">
@@ -74,7 +140,7 @@ export default function ProductDetailPage() {
               <div className="separator">•</div>
               <div className="rating-mini-row">
                 <span className="stars-gold">★★★★★</span>
-                <span className="review-count">({product.reviews})</span>
+                <span className="review-count">({product.reviews || '24+'})</span>
               </div>
             </div>
 
@@ -88,29 +154,31 @@ export default function ProductDetailPage() {
               <span className="tax-note">Inclusive of all taxes</span>
             </div>
             
-            <p className="brief-desc">{product.description}</p>
+            <p className="brief-desc">{product.shortDescription || product.description?.substring(0, 150) + '...'}</p>
 
             <div className="purchase-action-row">
-              <div className="quantity-stepper-compact">
-                <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="step-btn">−</button>
-                <div className="qty-val">{quantity}</div>
-                <button onClick={() => setQuantity(quantity + 1)} className="step-btn">+</button>
-              </div>
+              {product.stock > 0 && (
+                <div className="quantity-stepper-compact">
+                  <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="step-btn">−</button>
+                  <div className="qty-val">{quantity}</div>
+                  <button onClick={() => setQuantity(quantity + 1)} className="step-btn">+</button>
+                </div>
+              )}
 
               <div className="main-btns-cluster">
                   <button 
-                    className="add-to-bag-btn-compact" 
+                    className={`add-to-bag-btn-compact ${showFeedback ? 'success' : ''} ${isInCart ? 'persistent-added' : ''} ${product.stock <= 0 ? 'out-of-stock' : ''}`} 
                     onClick={handleAddToCart}
-                    style={{ background: showFeedback ? '#4caf50' : '' }}
+                    disabled={product.stock <= 0 || showFeedback}
                   >
-                    {showFeedback ? "ADDED!" : "ADD TO CART"}
+                    {product.stock <= 0 ? "OUT OF STOCK" : (showFeedback ? "ADDED!" : (isInCart ? "✓ ADDED" : "ADD TO CART"))}
                   </button>
                   <button 
-                    className={`wishlist-btn-minimal ${isWishlisted ? 'active' : ''}`} 
-                    title={isWishlisted ? "Remove from Wishlist" : "Add to Wishlist"}
-                    onClick={toggleWishlist}
+                    className={`wishlist-btn-minimal ${favorite ? 'active' : ''}`} 
+                    title={favorite ? "Remove from Wishlist" : "Add to Wishlist"}
+                    onClick={handleFavorite}
                   >
-                    {isWishlisted ? "♥" : "♡"}
+                    {favorite ? "♥" : "♡"}
                   </button>
               </div>
             </div>
@@ -153,17 +221,14 @@ export default function ProductDetailPage() {
           <div className="insight-column narrative-card">
             <h2 className="insight-title">The Spiritual Divinity</h2>
             <div className="insight-text">
-              <p>{product.description}</p>
-              <p>
-                In the Sanatani tradition, this sacred item is not merely a physical object but a vessel 
-                for divine energy. Hand-picked from the holy regions of the Himalayas, it undergoes a 
-                rigorous 11-step purification and energization process to ensure it resonates with your 
-                inner chakras.
-              </p>
-              <p>
-                Whether placed in your Puja altar or carried with you, it serves as a constant 
-                reminder of the eternal cosmic vibration.
-              </p>
+              <div dangerouslySetInnerHTML={{ __html: product.description }} />
+              {!product.description && (
+                <p>
+                  In the Sanatani tradition, this sacred item is not merely a physical object but a vessel 
+                  for divine energy, energized through traditional Vedic processes to resonate with your 
+                  inner chakras.
+                </p>
+              )}
             </div>
           </div>
 
@@ -219,35 +284,7 @@ export default function ProductDetailPage() {
             
             <div className="ecommerce-product-grid-pro">
               {relatedProducts.map((rp, index) => (
-                <div key={rp.id} className="ultra-compact-card-pro" style={{ '--delay': `${index * 0.05}s` }}>
-                  <Link to={`/product/${rp.id}`} className="card-media-ratio-pro">
-                    <img src={rp.img} alt={rp.name} loading="lazy" />
-                  </Link>
-                  
-                  <div className="card-content-compact">
-                    <div className="card-row-top">
-                      <span className="cat-mini">{rp.category}</span>
-                      <div className="rate-mini">★ {rp.rating}</div>
-                    </div>
-                    
-                    <Link to={`/product/${rp.id}`} className="card-name-mini">
-                      {rp.name}
-                    </Link>
-                    
-                    <div className="card-row-bottom">
-                      <div className="price-bold">₹{rp.price.toLocaleString()}</div>
-                      <button 
-                        className="add-btn-minimal" 
-                        onClick={(e) => {
-                          e.preventDefault();
-                          addToCart(rp);
-                        }}
-                      >
-                        + Add
-                      </button>
-                    </div>
-                  </div>
-                </div>
+                <ProductCardCompact key={rp._id || rp.id} product={rp} index={index} />
               ))}
             </div>
           </section>

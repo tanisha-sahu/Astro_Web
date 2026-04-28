@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import SectionHeader from '../SectionHeader/SectionHeader';
 import ProductCardCompact from '../ProductCardCompact/ProductCardCompact';
-import { fetchProducts } from '../../api/products';
+import { productService } from '../../services';
+
 import './DivineProductSection.css';
 
 const DivineProductSection = () => {
@@ -12,8 +13,8 @@ const DivineProductSection = () => {
     async function load() {
       try {
         setLoading(true)
-        const data = await fetchProducts()
-        setProducts(data.slice(0, 4))
+        const data = await productService.fetchProducts()
+        setProducts(data.slice(0, 12))
       } catch (error) {
         console.error('Failed to load divine products:', error)
       } finally {
@@ -32,14 +33,16 @@ const DivineProductSection = () => {
         subtitle="Curated for your Spiritual Journey" 
       />
       
-      <div className="divine-products-grid">
-        {products.map((product, index) => (
-          <ProductCardCompact 
-            key={product._id} 
-            product={product} 
-            index={index} 
-          />
-        ))}
+      <div className="divine-scroll-container">
+        <div className="divine-scroll-track">
+          {products.map((product, index) => (
+            <ProductCardCompact 
+              key={product._id} 
+              product={product} 
+              index={index} 
+            />
+          ))}
+        </div>
       </div>
     </section>
   );

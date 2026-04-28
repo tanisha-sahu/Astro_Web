@@ -3,7 +3,10 @@ import { useParams, useNavigate } from 'react-router-dom';
 import DashboardLayout from '../components/Dashboard/DashboardLayout';
 import ProductForm from '../components/Dashboard/ProductForm';
 import { ChevronLeft, Package, Sparkles } from 'lucide-react';
-import axiosInstance from '../api/axiosInstance';
+import { productService, categoryService } from '../services';
+import { uploadImageApi } from '../api/upload';
+import DashboardSkeleton from '../components/DashboardSkeleton/DashboardSkeleton';
+
 
 const DashboardProductEditorPage = () => {
     const { id } = useParams();
@@ -21,13 +24,14 @@ const DashboardProductEditorPage = () => {
         const fetchData = async () => {
             try {
                 // Always fetch collections
-                const collectionsRes = await axiosInstance.get('/collections');
-                setCollections(collectionsRes.data);
+                const data = await categoryService.fetchProductCategories();
+                setCollections(data);
 
                 if (isEditMode) {
-                    const productRes = await axiosInstance.get(`/products/${id}`);
-                    setProduct(productRes.data);
+                    const foundProduct = await productService.fetchProductByIdOrSlug(id);
+                    setProduct(foundProduct);
                 }
+
                 setLoading(false);
             } catch (err) {
                 console.error('Fetch error:', err);
@@ -48,14 +52,10 @@ const DashboardProductEditorPage = () => {
 
             // 1. Upload image if a new file is selected
             if (selectedFiles && selectedFiles.length > 0) {
-                const uploadFormData = new FormData();
-                uploadFormData.append('image', selectedFiles[0]);
-
-                const uploadRes = await axiosInstance.post('/upload', uploadFormData, {
-                    headers: { 'Content-Type': 'multipart/form-data' }
-                });
-                imageUrl = uploadRes.data.url;
+                const uploadRes = await uploadImageApi(selectedFiles[0]);
+                imageUrl = uploadRes.url;
             }
+
 
             // 2. Prep data for submission
             const dataToSubmit = { 
@@ -69,10 +69,11 @@ const DashboardProductEditorPage = () => {
             };
 
             if (isEditMode) {
-                await axiosInstance.put(`/products/${id}`, dataToSubmit);
+                await productService.updateProduct(id, dataToSubmit);
             } else {
-                await axiosInstance.post('/products', dataToSubmit);
+                await productService.createProduct(dataToSubmit);
             }
+
 
             navigate('/dashboard/products');
         } catch (err) {
@@ -106,9 +107,7 @@ const DashboardProductEditorPage = () => {
                 )}
 
                 {loading ? (
-                    <div className="loading-state" style={{ textAlign: 'center', padding: '50px' }}>
-                        <p>Loading product details...</p>
-                    </div>
+                    <DashboardSkeleton type="form" />
                 ) : (
                     <ProductForm 
                         initialData={product || {}}

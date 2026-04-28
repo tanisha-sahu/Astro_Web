@@ -5,6 +5,7 @@ import ImageCarousel from '../components/ImageCarousel/ImageCarousel.jsx'
 import CustomerStories from '../components/CustomerStories/CustomerStories.jsx'
 import VideoSection from '../components/VideoSection/VideoSection.jsx'
 import WhatsAppButton from '../components/WhatsAppButton/WhatsAppButton.jsx'
+import ChatbotWidget from '../components/Chatbot/ChatbotWidget.jsx'
 
 export default function HomePage() {
   return (
@@ -69,6 +70,7 @@ export default function HomePage() {
 
       {/* Floating Action Buttons */}
       <WhatsAppButton />
+      <ChatbotWidget />
     </>
   )
 }

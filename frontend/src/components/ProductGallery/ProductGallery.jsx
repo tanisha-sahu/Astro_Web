@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import './ProductGallery.css'
-import { fetchProducts } from '../../api/products.js'
+import { productService } from '../../services'
+
 
 const ProductGallery = () => {
   const [products, setProducts] = useState([])
@@ -12,7 +14,7 @@ const ProductGallery = () => {
     async function load() {
       try {
         setIsLoading(true)
-        const data = await fetchProducts()
+        const data = await productService.fetchProducts()
         if (!active) return
         setProducts(Array.isArray(data) ? data : [])
       } finally {
@@ -30,7 +32,9 @@ const ProductGallery = () => {
     <section className="product-showcase">
       <div className="gallery-header">
         <span className="gallery-subtitle">Divine Selection</span>
-        <h2 className="gallery-title">Our Sacred Products</h2>
+        <Link to="/sanatani-life" style={{ textDecoration: 'none' }}>
+          <h2 className="gallery-title">Our Sacred Products</h2>
+        </Link>
         <div className="gallery-line"></div>
       </div>
 
@@ -47,10 +51,11 @@ const ProductGallery = () => {
                 </div>
               </div>
             ) : (
-            <div key={product.id} className="item-card reference-style">
+            <Link key={product.id} to={`/product/${product.id}`} className="item-card reference-style">
               <div className="card-top">
                 <div className="zodiac-overlay"></div>
                 <div className="brand-mark">✦</div>
+                {product.stock <= 0 && <div className="out-of-stock-badge">Sold Out</div>}
                 <img src={product.img} alt={product.name} className="product-img-main" loading="lazy" />
               </div>
 
@@ -63,10 +68,10 @@ const ProductGallery = () => {
                   <span className="price-current">₹{product.price.toLocaleString()}/- Only</span>
                 </div>
                 <button className="buy-now-btn">
-                  BUY NOW <span className="arrow-icon">→</span>
+                  VIEW <span className="arrow-icon">→</span>
                 </button>
               </div>
-            </div>
+            </Link>
             )
           ))}
         </div>

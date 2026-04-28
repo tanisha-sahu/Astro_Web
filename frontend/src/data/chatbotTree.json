@@ -1,0 +1,71 @@
+{
+  "start": {
+    "message": "Namaste! Welcome to Astro Sanatani. How may I assist you on your spiritual journey today?",
+    "options": [
+      { "label": "Explore Services", "next": "services" },
+      { "label": "Pricing & Consultations", "next": "pricing" },
+      { "label": "Technical Support", "next": "support" },
+      { "label": "Submit a Query", "action": "redirect", "url": "/contact" }
+    ]
+  },
+  "services": {
+    "message": "We offer a variety of sacred services to guide you. Which one interests you?",
+    "options": [
+      { "label": "Vedic Astrology", "next": "astrology" },
+      { "label": "Gemstone Recommendation", "next": "gemstones" },
+      { "label": "Vastu Shastra", "next": "vastu" },
+      { "label": "Back", "next": "start" }
+    ]
+  },
+  "astrology": {
+    "message": "Our expert astrologers analyze your birth chart to provide deep insights into your karma and life path.",
+    "options": [
+      { "label": "View Consultations", "action": "redirect", "url": "/astro-consultation" },
+      { "label": "Other Services", "next": "services" }
+    ]
+  },
+  "gemstones": {
+    "message": "Discover the perfect gemstone for your planetary alignment. Our experts recommend based on your Rashi.",
+    "options": [
+      { "label": "Shop Collections", "action": "redirect", "url": "/sanatani-life" },
+      { "label": "Other Services", "next": "services" }
+    ]
+  },
+  "vastu": {
+    "message": "Harmonize your living space with the ancient wisdom of Vastu Shastra for prosperity and peace.",
+    "options": [
+      { "label": "Book Vastu Check", "action": "redirect", "url": "/contact" },
+      { "label": "Other Services", "next": "services" }
+    ]
+  },
+  "pricing": {
+    "message": "Our spiritual consultations are structured to be accessible. Personalized readings start from ₹501.",
+    "options": [
+      { "label": "See All Prices", "action": "redirect", "url": "/astro-consultation" },
+      { "label": "Back to Start", "next": "start" }
+    ]
+  },
+  "support": {
+    "message": "Facing hurdles? Tell us what you're looking for so we can guide you.",
+    "options": [
+      { "label": "Order Status", "next": "orders" },
+      { "label": "Payment Help", "next": "payments" },
+      { "label": "General Help", "action": "redirect", "url": "/contact" },
+      { "label": "Back", "next": "start" }
+    ]
+  },
+  "orders": {
+    "message": "You can track your sacred orders in the 'My Orders' section of your personal dashboard.",
+    "options": [
+      { "label": "Go to My Orders", "action": "redirect", "url": "/dashboard/orders" },
+      { "label": "Back to Support", "next": "support" }
+    ]
+  },
+  "payments": {
+    "message": "All transactions are secured with divine protection. If a payment failed, it's usually reversed within 3-5 days.",
+    "options": [
+      { "label": "Contact Finance", "action": "redirect", "url": "/contact" },
+      { "label": "Back to Support", "next": "support" }
+    ]
+  }
+}

@@ -1,21 +1,26 @@
 const express = require('express');
 const { protect, authorizeRoles } = require('../../middlewares/authMiddleware');
 const ROLES = require('../../config/roles');
+const blogController = require('../../controllers/blogController');
 
 const router = express.Router();
 
-// @desc    Get all blogs
-// @route   GET /api/v1/blogs
-// @access  Public
-router.get('/', (req, res) => {
-    res.status(200).json({ message: 'Fetching all blogs...' });
-});
+// Public routes
+router.get('/', blogController.getBlogs);
+router.get('/:idOrSlug', blogController.getBlog);
 
-// @desc    Create a blog
-// @route   POST /api/v1/blogs
-// @access  Private/Astrologer
-router.post('/', protect, authorizeRoles(ROLES.ASTROLOGER), (req, res) => {
-    res.status(201).json({ message: 'Blog created successfully (Astrologer Only)' });
-});
+// Protected routes
+router.use(protect);
+
+// Astrologer only: Get their own blogs
+router.get('/my/all', authorizeRoles(ROLES.ASTROLOGER), blogController.getMyBlogs);
+
+// Admin only: Get all blogs for management
+router.get('/admin/all', authorizeRoles(ROLES.ADMIN), blogController.getAdminBlogs);
+
+// Creation and Management (Astrologers can create/update their own, Admin can manage all)
+router.post('/', authorizeRoles(ROLES.ASTROLOGER, ROLES.ADMIN), blogController.createBlog);
+router.put('/:id', authorizeRoles(ROLES.ASTROLOGER, ROLES.ADMIN), blogController.updateBlog);
+router.delete('/:id', authorizeRoles(ROLES.ASTROLOGER, ROLES.ADMIN), blogController.deleteBlog);
 
 module.exports = router;

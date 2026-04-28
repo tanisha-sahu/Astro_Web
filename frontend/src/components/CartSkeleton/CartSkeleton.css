@@ -1,0 +1,29 @@
+.cart-skeleton {
+  padding-bottom: 80px;
+}
+
+.skeleton-cart-header {
+  height: 100px;
+  margin-bottom: 40px;
+}
+
+.skeleton-cart-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 0.5fr;
+  gap: 30px;
+}
+
+.skeleton-cart-item {
+  height: 120px;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.skeleton-cart-summary {
+  height: 400px;
+  width: 100%;
+}
+
+@media (max-width: 850px) {
+  .skeleton-cart-grid { grid-template-columns: 1fr; }
+}

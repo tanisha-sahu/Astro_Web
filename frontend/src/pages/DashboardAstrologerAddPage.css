@@ -1,0 +1,276 @@
+/* ==========================================================================
+   Premium Astrologer Onboarding Form Styles
+   ========================================================================== */
+
+.astrologer-add-container {
+    padding: 1.5rem;
+    max-width: 100%;
+    margin: 0;
+    animation: premiumSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes premiumSlideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.registration-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.03);
+    border: 1px solid rgba(0,0,0,0.03);
+    overflow: hidden;
+    position: relative;
+}
+
+.registration-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+}
+
+.card-form-area {
+    padding: 2.5rem 3rem;
+}
+
+.form-header-premium {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.header-icon-box {
+    width: 60px;
+    height: 60px;
+    background: #fff7ed;
+    color: var(--accent);
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    border: 1px solid rgba(var(--orange-rgb), 0.1);
+}
+
+.form-header-premium h2 {
+    font-family: var(--heading);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+}
+
+.form-header-premium p {
+    color: #64748b;
+    font-size: 0.85rem;
+    max-width: 450px;
+    margin: 0 auto;
+    line-height: 1.5;
+}
+
+.premium-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.full-width {
+    grid-column: span 2;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-weight: 700;
+    font-size: 0.75rem;
+    color: #334155;
+    margin-left: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.input-container {
+    position: relative;
+}
+
+.input-container svg {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    transition: all 0.3s;
+}
+
+.input-container input {
+    width: 100%;
+    height: 44px;
+    padding: 0 16px 0 44px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 10px;
+    background: #ffffff;
+    font-size: 0.9rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    color: #000000 !important;
+    font-weight: 500;
+}
+
+.input-container input::placeholder {
+    color: #94a3b8;
+    font-weight: 400;
+}
+
+.input-container input:focus {
+    background: white;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px rgba(var(--orange-rgb), 0.08);
+    outline: none;
+}
+
+.input-container input:focus + svg {
+    color: var(--accent);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.form-help-text {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    margin-top: 2px;
+    font-weight: 500;
+    font-style: italic;
+}
+
+.error-banner {
+    grid-column: span 2;
+    padding: 16px 24px;
+    background: #fff1f2;
+    color: #e11d48;
+    border-radius: 16px;
+    border-left: 5px solid #e11d48;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 12px rgba(225, 29, 72, 0.08);
+}
+
+.form-actions-premium {
+    grid-column: span 2;
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #f1f5f9;
+}
+
+.cancel-button {
+    padding: 12px 24px;
+    background: #f1f5f9;
+    color: #475569;
+    border-radius: 12px;
+    font-weight: 800;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 0.9rem;
+}
+
+.cancel-button:hover {
+    background: #e2e8f0;
+    color: #1e293b;
+}
+
+.submit-button-premium {
+    padding: 10px 28px;
+    background: linear-gradient(135deg, var(--accent), #ea580c);
+    color: white;
+    border-radius: 10px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 6px 15px rgba(var(--orange-rgb), 0.15);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+}
+
+.submit-button-premium:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px rgba(var(--orange-rgb), 0.4);
+}
+
+.submit-button-premium:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background: #cbd5e1;
+    box-shadow: none;
+}
+
+/* Responsive Overrides */
+@media (max-width: 768px) {
+    .astrologer-add-container {
+        padding: 0.75rem;
+    }
+    
+    .card-form-area {
+        padding: 2rem 1rem;
+    }
+    
+    .premium-form {
+        grid-template-columns: 1fr !important;
+        gap: 16px;
+    }
+    
+    .full-width {
+        grid-column: span 1 !important;
+    }
+    
+    .form-group {
+        grid-column: span 1 !important;
+    }
+    
+    .form-actions-premium {
+        grid-column: span 1;
+        flex-direction: column-reverse;
+        gap: 12px;
+        margin-top: 16px;
+        padding-top: 12px;
+    }
+    
+    .cancel-button, .submit-button-premium {
+        width: 100%;
+        justify-content: center;
+        height: 48px;
+        font-size: 0.85rem;
+    }
+    
+    .form-header-premium h2 {
+        font-size: 1.2rem;
+    }
+
+    .form-header-premium p {
+        font-size: 0.8rem;
+    }
+
+    .header-icon-box {
+        width: 48px;
+        height: 48px;
+        margin-bottom: 12px;
+    }
+}

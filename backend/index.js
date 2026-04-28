@@ -5,7 +5,11 @@ const cookieParser = require('cookie-parser');
 const connectDB = require('./config/db');
 const { notFound, errorHandler } = require('./middlewares/errorMiddleware');
 const path = require('path');
-const { authRoutes, productRoutes, blogRoutes, collectionRoutes } = require('./routes/v1');
+const { 
+    authRoutes, productRoutes, blogRoutes, collectionRoutes, 
+    userRoutes, cartRoutes, wishlistRoutes, orderRoutes, 
+    notificationRoutes, adminRoutes
+} = require('./routes/v1');
 
 dotenv.config();
 
@@ -26,6 +30,12 @@ app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/products', productRoutes);
 app.use('/api/v1/blogs', blogRoutes);
 app.use('/api/v1/collections', collectionRoutes);
+app.use('/api/v1/users', userRoutes);
+app.use('/api/v1/cart', cartRoutes);
+app.use('/api/v1/wishlist', wishlistRoutes);
+app.use('/api/v1/orders', orderRoutes);
+app.use('/api/v1/notifications', notificationRoutes);
+app.use('/api/v1/admin', adminRoutes);
 app.use('/api/v1/upload', require('./routes/v1/uploadRoutes'));
 
 // Serve static files from public folder

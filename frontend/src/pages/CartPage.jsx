@@ -1,31 +1,30 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import SectionHeader from '../components/SectionHeader/SectionHeader'
 import { useCart } from '../context/CartContext'
+import useAuthStore from '../store/authStore'
+import CartSkeleton from '../components/CartSkeleton/CartSkeleton'
 import './CartPage.css'
 
 export default function CartPage() {
-  const { items, updateQty, removeItem, subtotal } = useCart()
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    // Simulate loading for UI smoothness
-    const timer = setTimeout(() => setLoading(false), 500)
-    return () => clearTimeout(timer)
-  }, [])
+  const navigate = useNavigate()
+  const { isAuthenticated } = useAuthStore()
+  const { items, updateQty, removeItem, clearCart, subtotal, loading } = useCart()
 
   const shipping = items.length === 0 ? 0 : (subtotal > 5000 ? 0 : 150)
   const gst = Math.round(subtotal * 0.18)
   const total = subtotal + shipping + gst
 
-  if (loading) {
-    return (
-      <div className="cart-loading">
-        <div className="cart-spinner"></div>
-        <p>Opening your sacred box...</p>
-      </div>
-    )
+  const handleCheckout = () => {
+    if (!isAuthenticated) {
+      navigate('/login')
+      return
+    }
+    // Checkout logic here (e.g. navigate to checkout page)
+    console.log('Proceeding to checkout')
   }
+
+  if (loading) return <CartSkeleton />
 
   return (
     <div className="cart-page">
@@ -50,6 +49,7 @@ export default function CartPage() {
                 <span>Price</span>
                 <span>Quantity</span>
                 <span>Total</span>
+                <span className="text-center">Action</span>
               </div>
               
               <div className="cart-items-list">
@@ -62,14 +62,6 @@ export default function CartPage() {
                       <div className="item-details">
                         <span className="item-cat">{item.category}</span>
                         <h3>{item.name}</h3>
-                        <button className="remove-btn" onClick={() => removeItem(item.id)} title="Remove Item">
-                          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                            <polyline points="3 6 5 6 21 6"></polyline>
-                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                            <line x1="10" y1="11" x2="10" y2="17"></line>
-                            <line x1="14" y1="11" x2="14" y2="17"></line>
-                          </svg>
-                        </button>
                       </div>
                     </div>
 
@@ -91,14 +83,36 @@ export default function CartPage() {
                       <span className="mobile-label">Subtotal: </span>
                       ₹{(item.price * item.qty).toLocaleString()}
                     </div>
+
+                    <div className="item-action">
+                      <button className="delete-cart-item" onClick={() => removeItem(item.id)} title="Remove Item">
+                        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                          <polyline points="3 6 5 6 21 6"></polyline>
+                          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                        </svg>
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>
 
               <div className="cart-actions">
-                <Link to="/" className="back-link">
-                  ← Continue Shopping
+                <Link to="/" className="continue-shopping-btn">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                  </svg>
+                  Continue Shopping
                 </Link>
+
+                {items.length > 0 && (
+                  <button className="clear-cart-btn" onClick={clearCart}>
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2">
+                      <polyline points="3 6 5 6 21 6"></polyline>
+                      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                    </svg>
+                    Clear Bag
+                  </button>
+                )}
               </div>
             </div>
 
@@ -125,7 +139,7 @@ export default function CartPage() {
                   <span>₹{total.toLocaleString()}</span>
                 </div>
 
-                <button className="checkout-btn">
+                <button className="checkout-btn" onClick={handleCheckout}>
                   Proceed to Checkout
                   <span className="btn-shine"></span>
                 </button>

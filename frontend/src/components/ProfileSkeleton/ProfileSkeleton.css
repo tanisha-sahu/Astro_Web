@@ -1,0 +1,138 @@
+.profile-skeleton-container {
+  padding: 2rem 1rem;
+  min-height: calc(100vh - 200px);
+  background: #f8fafc;
+}
+
+.skeleton-card {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f1f5f9;
+}
+
+.header-skeleton {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.skeleton-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.skeleton-intro {
+  flex: 1;
+}
+
+.skeleton-line {
+  height: 1rem;
+  background: #e2e8f0;
+  border-radius: 4px;
+  margin-bottom: 0.75rem;
+}
+
+.skeleton-line.title {
+  width: 200px;
+  height: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.skeleton-line.subtitle {
+  width: 150px;
+}
+
+.skeleton-button {
+  width: 120px;
+  height: 40px;
+  border-radius: 12px;
+}
+
+.skeleton-section-header {
+  margin-bottom: 2.5rem;
+}
+
+.skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.skeleton-grid-item {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.25rem;
+  background: #f8fafc;
+  border-radius: 16px;
+}
+
+.skeleton-icon-box {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.skeleton-text-group {
+  flex: 1;
+}
+
+.skeleton-line.label {
+  width: 80px;
+  height: 0.75rem;
+}
+
+.skeleton-line.value {
+  width: 120px;
+  height: 1rem;
+}
+
+.skeleton-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.skeleton-action-item {
+  height: 80px;
+  border-radius: 16px;
+  background: #f8fafc;
+}
+
+/* Shimmer Animation */
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    #f1f5f9 25%,
+    #f8fafc 50%,
+    #f1f5f9 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer-anim 1.5s infinite linear;
+}
+
+@keyframes shimmer-anim {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@media (max-width: 768px) {
+  .header-skeleton {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
+  }
+  
+  .skeleton-intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}

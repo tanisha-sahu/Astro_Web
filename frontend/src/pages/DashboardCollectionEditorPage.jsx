@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import DashboardLayout from '../components/Dashboard/DashboardLayout';
 import CollectionForm from '../components/Dashboard/CollectionForm';
+import DashboardSkeleton from '../components/DashboardSkeleton/DashboardSkeleton';
 import { LayoutGrid, ChevronLeft } from 'lucide-react';
-import axiosInstance from '../api/axiosInstance';
+import { categoryService } from '../services';
 
 const DashboardCollectionEditorPage = () => {
     const { id } = useParams();
@@ -17,8 +18,8 @@ const DashboardCollectionEditorPage = () => {
         if (isEditMode) {
             const fetchCollection = async () => {
                 try {
-                    const res = await axiosInstance.get(`/collections/${id}`);
-                    setInitialData(res.data);
+                    const data = await categoryService.fetchCollectionByIdOrSlug(id);
+                    setInitialData(data);
                 } catch (err) {
                     console.error('Failed to fetch collection:', err);
                 } finally {
@@ -28,6 +29,7 @@ const DashboardCollectionEditorPage = () => {
             fetchCollection();
         }
     }, [id, isEditMode]);
+
 
     return (
         <DashboardLayout>
@@ -48,10 +50,7 @@ const DashboardCollectionEditorPage = () => {
 
                 <div className="editor-form-wrapper">
                     {loading ? (
-                        <div className="premium-card" style={{ textAlign: 'center', padding: '100px' }}>
-                            <div className="sacred-loader"></div>
-                            <p style={{ marginTop: '20px', color: '#64748b' }}>Conjurating collection essence...</p>
-                        </div>
+                        <DashboardSkeleton type="form" />
                     ) : (
                         <CollectionForm 
                             isEditMode={isEditMode}

@@ -48,6 +48,39 @@ const useAuthStore = create((set) => ({
         }
     },
 
+    updateProfile: async (userData) => {
+        set({ error: null });
+        try {
+            const updatedUser = await authService.updateProfile(userData);
+            set({ user: updatedUser, loading: false });
+            return updatedUser;
+        } catch (error) {
+            set({ error: error.response?.data?.message || 'Update failed', loading: false });
+            throw error;
+        }
+    },
+
+    deleteAccount: async () => {
+        set({ error: null });
+        try {
+            await authService.deleteProfile();
+            set({ user: null, isAuthenticated: false, loading: false });
+        } catch (error) {
+            set({ error: error.response?.data?.message || 'Deletion failed', loading: false });
+            throw error;
+        }
+    },
+
+    changePassword: async (passwords) => {
+        set({ error: null });
+        try {
+            await authService.changePassword(passwords);
+        } catch (error) {
+            set({ error: error.response?.data?.message || 'Password change failed' });
+            throw error;
+        }
+    },
+
     hasRole: (allowedRoles) => {
         const user = useAuthStore.getState().user;
         if (!user || !user.roles) return false;

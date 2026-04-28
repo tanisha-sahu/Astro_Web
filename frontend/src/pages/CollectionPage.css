@@ -251,31 +251,34 @@
 }
 
 .cat-mini {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 800;
   text-transform: uppercase;
-  color: var(--gold);
-  letter-spacing: 0.8px;
+  color: var(--orange-500);
+  letter-spacing: 1px;
 }
 
 .rate-mini {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   color: var(--text-muted);
 }
 
 .card-name-mini {
   font-family: var(--heading);
-  font-size: 15px;
+  font-size: 17px;
   color: var(--primary);
   text-decoration: none;
-  line-height: 1.3;
-  height: 2.6em;
+  line-height: 1.2;
+  height: 2.4em;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   margin: 4px 0;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.5px;
 }
 
 .card-row-bottom {
@@ -287,18 +290,18 @@
 }
 
 .price-bold {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 900;
   color: var(--primary);
 }
 
 .add-btn-minimal {
-  padding: 10px 16px;
+  padding: 10px 20px;
   background: var(--primary);
   color: var(--white);
   border: none;
   border-radius: 4px;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -379,7 +382,7 @@
   }
 
   .card-name-mini {
-    font-size: 12px;
+    font-size: 14px;
     height: 2.8em;
     margin-bottom: 4px;
   }
@@ -392,14 +395,14 @@
   }
 
   .price-bold {
-    font-size: 15px;
+    font-size: 18px;
     text-align: center;
   }
 
   .add-btn-minimal {
     width: 100%; /* Full-width button for easy tapping */
-    padding: 10px;
-    font-size: 10px;
+    padding: 12px;
+    font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
   }
@@ -408,7 +411,105 @@
     display: inline-block; /* Show text on mobile since it's now full-width */
   }
 
-  .add-btn-minimal .plus {
-    font-size: 12px;
+    .add-btn-minimal .plus {
+      font-size: 12px;
+    }
   }
+
+/* --- Empty Collection State --- */
+.empty-collection-centered-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 100px 0;
+  margin: 0 auto;
+}
+
+.empty-collection-state {
+  max-width: 800px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 0 auto;
+  background: radial-gradient(circle at center, rgba(var(--gold-rgb), 0.08) 0%, transparent 75%);
+  animation: divineFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.empty-icon {
+  font-size: 80px;
+  line-height: 1;
+  margin: 0 auto 20px;
+  display: block;
+  text-align: center;
+  filter: drop-shadow(0 15px 30px rgba(var(--gold-rgb), 0.3));
+  animation: iconFloat 4s infinite ease-in-out;
+}
+
+@keyframes iconFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+.empty-collection-state h3 {
+  font-family: var(--heading);
+  font-size: 48px;
+  color: var(--primary);
+  margin: 0 auto;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  line-height: 1.1;
+  width: 100%;
+  text-align: center;
+}
+
+.empty-collection-state p {
+  color: var(--text-muted);
+  font-size: 18px;
+  line-height: 1.8;
+  max-width: 580px;
+  margin: 24px auto 35px;
+  text-align: center;
+}
+
+.btn-browse-all {
+  padding: 18px 45px;
+  background: var(--primary);
+  color: var(--white);
+  text-decoration: none;
+  font-family: var(--heading);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 14px;
+  border-radius: 50px;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  box-shadow: 0 10px 30px rgba(var(--primary-rgb), 0.3);
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.btn-browse-all:hover {
+  background: var(--gold);
+  color: var(--primary);
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(var(--gold-rgb), 0.5);
+}
+
+@media (max-width: 768px) {
+  .empty-collection-centered-wrap { padding: 40px 15px; }
+  .empty-icon { font-size: 60px; margin-bottom: 10px; }
+  .empty-collection-state h3 { font-size: 26px; letter-spacing: 1px; }
+  .empty-collection-state p { font-size: 14px; margin: 12px 0 20px; line-height: 1.6; }
+  .btn-browse-all { width: 100%; max-width: 300px; padding: 15px 25px; font-size: 12px; text-align: center; }
+}
+
+@media (max-width: 480px) {
+  .empty-collection-centered-wrap { padding: 30px 10px; }
+  .empty-icon { font-size: 50px; }
+  .empty-collection-state h3 { font-size: 22px; }
+  .empty-collection-state p { font-size: 13px; }
 }

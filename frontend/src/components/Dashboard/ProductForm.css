@@ -431,16 +431,16 @@ input:checked + .slider:before {
     }
 
     .editor-main-title {
-        font-size: 1.6rem;
+        font-size: 1.25rem;
         flex-direction: column;
-        gap: 10px;
+        gap: 8px;
         line-height: 1.2;
         text-align: center;
     }
 
     .editor-subtitle {
-        font-size: 1rem;
-        margin-top: 10px;
+        font-size: 0.85rem;
+        margin-top: 8px;
     }
 
     .premium-card {
@@ -504,15 +504,15 @@ input:checked + .slider:before {
 }
 
 .editor-main-title {
-    font-size: 2.4rem;
-    font-weight: 900;
+    font-size: 1.8rem;
+    font-weight: 700;
     color: #1e293b;
     margin: 0;
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 16px;
     font-family: var(--heading);
-    letter-spacing: -0.5px;
+    letter-spacing: -0.01em;
 }
 
 .editor-main-title svg {
@@ -521,8 +521,8 @@ input:checked + .slider:before {
 
 .editor-subtitle {
     color: #64748b;
-    margin: 12px 0 0;
-    font-size: 1.15rem;
+    margin: 8px 0 0;
+    font-size: 1rem;
     font-weight: 500;
 }
 

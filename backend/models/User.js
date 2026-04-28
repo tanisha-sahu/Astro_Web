@@ -34,6 +34,18 @@ const userSchema = new mongoose.Schema({
         type: [String],
         enum: ['admin', 'astrologer', 'user'],
         default: ['user']
+    },
+    image: {
+        type: String,
+        default: ''
+    },
+    specialty: {
+        type: String,
+        default: 'Vedic Astrology'
+    },
+    experience: {
+        type: String,
+        default: '10+ Years'
     }
 }, {
     timestamps: true

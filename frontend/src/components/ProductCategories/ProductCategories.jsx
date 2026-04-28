@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import './ProductCategories.css'
-import { fetchProductCategories } from '../../api/productCategories.js'
+import { categoryService } from '../../services'
+
 import SectionHeader from '../SectionHeader/SectionHeader.jsx'
 import CollectionCard from '../CollectionCard/CollectionCard.jsx'
 
@@ -14,7 +15,7 @@ export default function ProductCategories() {
     async function load() {
       try {
         setIsLoading(true)
-        const data = await fetchProductCategories()
+        const data = await categoryService.fetchProductCategories()
         if (!isMounted) return
         setCategories(Array.isArray(data) ? data : [])
       } finally {

@@ -2,7 +2,10 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import useAuthStore from '../../store/authStore'
 import { ROLES } from '../../constants/roles'
-import { fetchProductCategories } from '../../api/productCategories'
+import { categoryService } from '../../services'
+import { useCart } from '../../context/CartContext'
+
+import { getImageUrl } from '../../utils/imageUtils'
 import './Header.css'
 
 const NAV_LINKS = [
@@ -23,6 +26,7 @@ const STATIC_TOP_LINKS = [
 
 export default function Header() {
   const { isAuthenticated, logout, user } = useAuthStore()
+  const { cartCount } = useCart()
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const [collections, setCollections] = useState([])
@@ -31,8 +35,9 @@ export default function Header() {
   useEffect(() => {
     async function loadCollections() {
       try {
-        const data = await fetchProductCategories()
+        const data = await categoryService.fetchProductCategories()
         setCollections(data)
+
       } catch (err) {
         console.error('Failed to load collections for header:', err)
       }
@@ -50,11 +55,23 @@ export default function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20)
+      const scrolled = window.scrollY > 20
+      setIsScrolled(scrolled)
+      
+      // Update CSS variable for sidebar top position
+      // Desktop: 122px (unscrolled), 84px (scrolled)
+      // Mobile: 118px (unscrolled), 86px (scrolled)
+      const isMobile = window.innerWidth <= 1024
+      const height = isMobile ? (scrolled ? 86 : 118) : (scrolled ? 84 : 122)
+      document.documentElement.style.setProperty('--header-height', `${height}px`)
     }
     handleScroll() // Initialize on mount
     window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
+    window.addEventListener('resize', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('resize', handleScroll)
+    }
   }, [])
 
   useEffect(() => {
@@ -159,13 +176,17 @@ export default function Header() {
         <div className="headerRight">
           {isAuthenticated ? (
             <div className="user-nav">
-              <Link className="iconBtn" to="/profile" aria-label="Profile">
-                <svg viewBox="0 0 24 24" role="presentation" aria-hidden="true">
-                  <path
-                    d="M12 12.2a4.6 4.6 0 1 0-4.6-4.6A4.6 4.6 0 0 0 12 12.2Zm0 2.2c-4.3 0-7.8 2.3-7.8 5.2 0 .8.7 1.4 1.5 1.4h12.6c.8 0 1.5-.6 1.5-1.4 0-2.9-3.5-5.2-7.8-5.2Z"
-                    fill="currentColor"
-                  />
-                </svg>
+              <Link className="iconBtn header-avatar-btn" to="/profile" aria-label="Profile">
+                {user?.image ? (
+                  <img src={getImageUrl(user.image)} alt={user.firstName} className="header-avatar-img" />
+                ) : (
+                  <svg viewBox="0 0 24 24" role="presentation" aria-hidden="true">
+                    <path
+                      d="M12 12.2a4.6 4.6 0 1 0-4.6-4.6A4.6 4.6 0 0 0 12 12.2Zm0 2.2c-4.3 0-7.8 2.3-7.8 5.2 0 .8.7 1.4 1.5 1.4h12.6c.8 0 1.5-.6 1.5-1.4 0-2.9-3.5-5.2-7.8-5.2Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                )}
               </Link>
               {isAuthenticated && (
                 <Link className="iconBtn" to="/dashboard" title="Dashboard" aria-label="Dashboard">
@@ -180,13 +201,16 @@ export default function Header() {
               Login
             </Link>
           )}
-          <Link className="iconBtn" to="/cart" aria-label="Cart">
+          <Link className="iconBtn cart-icon-btn" to="/cart" aria-label="Cart">
             <svg viewBox="0 0 24 24" role="presentation" aria-hidden="true">
               <path
                 d="M7.3 18.2a1.6 1.6 0 1 0 1.6 1.6 1.6 1.6 0 0 0-1.6-1.6Zm10.1 0a1.6 1.6 0 1 0 1.6 1.6 1.6 1.6 0 0 0-1.6-1.6ZM6.2 6.3l.2 1h13.8a1 1 0 0 1 1 .9 1.2 1.2 0 0 1 0 .3l-1.3 6.2a2.3 2.3 0 0 1-2.2 1.8H9.1a2.3 2.3 0 0 1-2.2-1.8L5.6 3.9H3.3a1 1 0 1 1 0-2h3.1a1 1 0 0 1 1 .8l.3 1.6Z"
                 fill="currentColor"
               />
             </svg>
+            {cartCount > 0 && (
+              <span className="cart-badge">{cartCount}</span>
+            )}
           </Link>
 
           <button
@@ -237,7 +261,10 @@ export default function Header() {
               onClick={onNavClick}
               style={{ '--i': 0 }}
             >
-              My Profile
+              <div className="mobile-profile-label">
+                {user?.image && <img src={getImageUrl(user.image)} alt="" className="mobile-avatar-img" />}
+                <span>My Profile</span>
+              </div>
             </NavLink>
           ) : (
             <NavLink

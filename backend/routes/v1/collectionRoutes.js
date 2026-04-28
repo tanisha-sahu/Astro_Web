@@ -14,4 +14,6 @@ router.put('/:id', protect, authorizeRoles(ROLES.ADMIN), collectionController.up
 
 router.delete('/:id', protect, authorizeRoles(ROLES.ADMIN), collectionController.deleteCollection);
 
+router.patch('/:id/toggle-status', protect, authorizeRoles(ROLES.ADMIN), collectionController.toggleCollectionStatus);
+
 module.exports = router;

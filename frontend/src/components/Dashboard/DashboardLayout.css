@@ -1,53 +1,93 @@
+.dashboard-layout-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
 .dashboard-layout {
   display: flex;
-  min-height: 100vh;
+  flex: 1;
   background-color: #f8fafc;
   color: var(--black);
-  transition: all 0.3s ease;
+  overflow: hidden;
+  position: relative;
 }
 
 .dashboard-main {
   flex: 1;
   display: flex;
   flex-direction: column;
-  min-width: 0; /* Prevents flex children from overflowing */
-  transition: all 0.3s ease;
+  min-width: 0;
+  overflow-y: auto;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.sidebar-open .dashboard-main {
-  /* No margin needed if sidebar is in flow */
-}
-
-.sidebar-closed .dashboard-main {
-  /* No margin needed if sidebar is in flow */
+.dashboard-content {
+  padding: 24px;
+  flex: 1;
+  max-width: 1600px;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .dashboard-backdrop {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(15, 23, 42, 0.3);
   backdrop-filter: blur(4px);
   z-index: 999;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @media (max-width: 768px) {
   .dashboard-backdrop {
     display: block;
-  }
-}
-
-.dashboard-content {
-  padding: 20px 30px 30px 30px;
-  flex: 1;
-}
-
-@media (max-width: 768px) {
-  .dashboard-main {
-    margin-left: 0 !important;
+    z-index: 1000;
   }
   
   .dashboard-content {
-    padding: 15px; /* Reduced from 20px/30px */
+    padding: 16px;
+    padding-top: 20px;
+  }
+}
+
+/* Empty State Styling - Common for all Dashboard pages */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  text-align: center;
+  width: 100%;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #f1f5f9;
+}
+
+.empty-state h3 {
+  margin: 15px 0 8px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.empty-state p {
+  color: #64748b;
+  font-size: 0.95rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .empty-state {
+    padding: 60px 16px;
   }
 }

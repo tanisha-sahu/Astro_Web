@@ -5,15 +5,23 @@ const productService = require('../services/productService');
 // @access  Public
 const getProducts = async (req, res, next) => {
     try {
-        const { collection, isFeatured, admin } = req.query;
+        const { collection, isFeatured, admin, search, status, page, limit, sortField, sortOrder } = req.query;
         const filters = {
-            adminMode: admin === 'true'
+            adminMode: admin === 'true',
+            search,
+            page,
+            limit,
+            sortField,
+            sortOrder
         };
         if (collection) filters.collection = collection;
         if (isFeatured !== undefined) filters.isFeatured = isFeatured === 'true';
+        
+        if (status === 'active') filters.isActive = true;
+        if (status === 'inactive') filters.isActive = false;
 
-        const products = await productService.getAllProducts(filters);
-        return res.status(200).json(products);
+        const result = await productService.getAllProducts(filters);
+        return res.status(200).json(result);
     } catch (error) {
         return next(error);
     }
@@ -67,10 +75,23 @@ const deleteProduct = async (req, res, next) => {
     }
 };
 
+// @desc    Toggle product status
+// @route   PATCH /api/v1/products/:id/toggle-status
+// @access  Private/Admin
+const toggleProductStatus = async (req, res, next) => {
+    try {
+        const updatedProduct = await productService.toggleProductStatus(req.params.id);
+        return res.status(200).json(updatedProduct);
+    } catch (error) {
+        return next(error);
+    }
+};
+
 module.exports = {
     getProducts,
     getProduct,
     createProduct,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    toggleProductStatus
 };

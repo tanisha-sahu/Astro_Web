@@ -113,10 +113,9 @@
 }
 
 .teamCard:hover {
-  transform: translateY(-15px) rotateX(4deg) rotateY(2deg);
-  border-color: var(--yellow);
-  box-shadow: 0 35px 80px rgba(var(--yellow-rgb), 0.2);
-  /* Stronger Yellow Glow */
+  transform: translateY(-8px);
+  border-color: rgba(var(--primary-rgb), 0.1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
 }
 
 .teamCard-aura {
@@ -130,7 +129,7 @@
 }
 
 .teamCard:hover .teamCard-aura {
-  opacity: 1;
+  opacity: 0;
 }
 
 .teamImageWrap {

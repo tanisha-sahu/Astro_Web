@@ -10,7 +10,10 @@ import {
     Eye, 
     EyeOff 
 } from 'lucide-react';
-import axiosInstance, { IMAGE_BASE_URL } from '../../api/axiosInstance';
+import { categoryService } from '../../services';
+import { uploadImageApi } from '../../api/upload';
+import { IMAGE_BASE_URL } from '../../api/axiosInstance';
+
 import './CollectionForm.css';
 
 const CollectionForm = ({ initialData = null, isEditMode = false, onSave, onCancel }) => {
@@ -75,23 +78,20 @@ const CollectionForm = ({ initialData = null, isEditMode = false, onSave, onCanc
 
             // 1. Upload image if a new file is chosen
             if (selectedFile) {
-                const uploadFormData = new FormData();
-                uploadFormData.append('image', selectedFile);
-
-                const uploadRes = await axiosInstance.post('/upload', uploadFormData, {
-                    headers: { 'Content-Type': 'multipart/form-data' }
-                });
-                imageUrl = uploadRes.data.url;
+                const uploadRes = await uploadImageApi(selectedFile);
+                imageUrl = uploadRes.url;
             }
+
 
             // 2. Submit Collection Data
             const dataToSubmit = { ...formData, image: imageUrl };
             
             if (isEditMode && initialData?._id) {
-                await axiosInstance.put(`/collections/${initialData._id}`, dataToSubmit);
+                await categoryService.updateCollection(initialData._id, dataToSubmit);
             } else {
-                await axiosInstance.post('/collections', dataToSubmit);
+                await categoryService.createCollection(dataToSubmit);
             }
+
 
             onSave();
         } catch (err) {

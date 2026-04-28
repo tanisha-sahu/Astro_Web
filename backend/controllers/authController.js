@@ -15,6 +15,7 @@ const authUser = async (req, res, next) => {
             lastName: user.lastName,
             email: user.email,
             mobile: user.mobile,
+            image: user.image,
             roles: user.roles
         });
     } catch (error) {
@@ -37,6 +38,7 @@ const registerUser = async (req, res, next) => {
             lastName: user.lastName,
             email: user.email,
             mobile: user.mobile,
+            image: user.image,
             roles: user.roles
         });
     } catch (error) {
@@ -67,15 +69,75 @@ const getUserProfile = async (req, res) => {
         email: req.user.email,
         mobile: req.user.mobile,
         dob: req.user.dob,
+        image: req.user.image,
         roles: req.user.roles
     };
 
     res.status(200).json(user);
 };
 
+// @desc    Update user profile
+// @route   PUT /api/v1/auth/profile
+// @access  Private
+const updateUserProfile = async (req, res, next) => {
+    try {
+        const updatedUser = await authService.updateUserProfile(req.user._id, req.body);
+
+        res.status(200).json({
+            _id: updatedUser._id,
+            firstName: updatedUser.firstName,
+            lastName: updatedUser.lastName,
+            email: updatedUser.email,
+            mobile: updatedUser.mobile,
+            dob: updatedUser.dob,
+            image: updatedUser.image,
+            roles: updatedUser.roles
+        });
+    } catch (error) {
+        res.status(404);
+        next(error);
+    }
+};
+
+// @desc    Delete user profile
+// @route   DELETE /api/v1/auth/profile
+// @access  Private
+const deleteUserProfile = async (req, res, next) => {
+    try {
+        await authService.deleteUser(req.user._id);
+        
+        res.cookie('jwt', '', {
+            httpOnly: true,
+            expires: new Date(0)
+        });
+
+        res.status(200).json({ message: 'User deleted successfully' });
+    } catch (error) {
+        res.status(404);
+        next(error);
+    }
+};
+
+// @desc    Change password
+// @route   PUT /api/v1/auth/change-password
+// @access  Private
+const changePassword = async (req, res, next) => {
+    try {
+        const { currentPassword, newPassword } = req.body;
+        await authService.changePassword(req.user._id, currentPassword, newPassword);
+        res.status(200).json({ message: 'Password changed successfully' });
+    } catch (error) {
+        res.status(400);
+        next(error);
+    }
+};
+
 module.exports = {
     authUser,
     registerUser,
     logoutUser,
-    getUserProfile
+    getUserProfile,
+    updateUserProfile,
+    deleteUserProfile,
+    changePassword
 };

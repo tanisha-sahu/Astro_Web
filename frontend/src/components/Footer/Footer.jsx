@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { fetchProductCategories } from '../../api/productCategories'
+import { categoryService } from '../../services'
+
 import './Footer.css'
 
 const ASTRO_LINKS = [
@@ -35,7 +36,8 @@ export default function Footer() {
   useEffect(() => {
     async function load() {
       try {
-        const collections = await fetchProductCategories()
+        const collections = await categoryService.fetchProductCategories()
+
         const dynamicLinks = collections.map(c => ({
           label: c.name,
           href: `/collection/${c.slug || c._id}`

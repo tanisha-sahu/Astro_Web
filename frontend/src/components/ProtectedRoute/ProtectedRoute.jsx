@@ -1,22 +1,30 @@
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import useAuthStore from '../../store/authStore';
+import DashboardLayout from '../Dashboard/DashboardLayout';
+import DashboardSkeleton from '../DashboardSkeleton/DashboardSkeleton';
+import { ProfileSkeleton } from '../../pages/ProfilePage';
 
 const ProtectedRoute = ({ allowedRoles }) => {
     const { isAuthenticated, loading, user } = useAuthStore();
+    const location = useLocation();
+    const isDashboardRoute = location.pathname.startsWith('/dashboard');
+    const isProfileRoute = location.pathname === '/profile';
 
     if (loading) {
-        return (
-            <div className="loading-container" style={{ 
-                height: '100vh', 
-                display: 'flex', 
-                alignItems: 'center', 
-                justifyContent: 'center',
-                background: 'var(--primary-dark)',
-                color: 'var(--gold)'
-            }}>
-                <div className="loader">Loading Sacred Journey...</div>
-            </div>
-        );
+        if (isDashboardRoute) {
+            return (
+                <DashboardLayout>
+                    <DashboardSkeleton type="dashboard" />
+                </DashboardLayout>
+            );
+        }
+
+        if (isProfileRoute) {
+            return <ProfileSkeleton />;
+        }
+
+        // Default skeleton for other protected routes
+        return <ProfileSkeleton />;
     }
 
     if (!isAuthenticated) {
